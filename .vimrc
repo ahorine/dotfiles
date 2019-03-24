@@ -3,8 +3,12 @@ set nocompatible
 call pathogen#helptags()
 call pathogen#infect()
 
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard'
+colorscheme molokai
+let g:rehash256 = 1
+"colorscheme gruvbox
+"set background=dark
+"let g:gruvbox_termcolors=16
+"let g:gruvbox_contrast_dark='hard'
 
 syntax enable
 
@@ -13,7 +17,8 @@ syntax enable
 "AIRLINE
 set laststatus=2
 "AIRLINE THEMES
-let g:airline_theme='gruvbox'
+"let g:airline_theme='deus'
+let g:airline_theme='base16_monokai'
 let g:airline#extensions#tabline#enables=1
 let g:airline#extensions#tabline#fnamemod=':t'
 
@@ -25,6 +30,7 @@ set backspace=indent,eol,start
 set copyindent
 set number
 set showmatch
+set ignorecase
 set smartcase
 set hlsearch
 set incsearch
@@ -46,3 +52,9 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 map <Space> :noh<cr>
 let mapleader = ","
+
+nnoremap <leader>. :CtrlPTag<cr>
+
+"CTRLP mappings
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_cmd = 'CtrlP'
