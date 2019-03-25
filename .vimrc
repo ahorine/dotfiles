@@ -51,6 +51,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 map <Space> :noh<cr>
+nmap <F8> :TagbarToggle<CR>
 let mapleader = ","
 
 nnoremap <leader>. :CtrlPTag<cr>
