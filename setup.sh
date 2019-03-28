@@ -13,3 +13,4 @@ git clone https://github.com/tpope/vim-endwise
 git clone https://github.com/tpope/vim-fugitive
 git clone https://github.com/airblade/vim-gitgutter
 git clone https://github.com/szw/vim-tags
+git clone https://github.com/majutsushi/tagbar
