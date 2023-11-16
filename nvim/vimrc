@@ -1,0 +1,95 @@
+set nocompatible
+
+call pathogen#helptags()
+call pathogen#infect()
+
+"if (has("termguicolors"))
+"  set termguicolors
+"endif
+
+"colorscheme iceberg
+
+let g:rehash256 = 1
+
+syntax enable
+
+"ALE
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'always'
+
+let g:ale_linters = {
+      \ 'sh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
+      \ 'zsh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
+      \ 'yaml': ['yamllint'],
+      \ 'python': ['flake8', 'mypy', 'pylint', 'pyls'],
+      \}
+      " 'zsh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
+
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'go': ['gofmt', 'gofumpt', 'goimports', 'golines'],
+      \}
+
+"YCM
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+
+"airline
+"set laststatus=2
+"let g:airline#extensions#tabline#enabled=1
+"let g:airline#extensions#tabline#fnamemod=':t'
+
+"general
+set updatetime=1000
+set hidden
+set scrolloff=5
+set backspace=indent,eol,start
+set copyindent
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set number
+set showmatch
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set history=1000
+set undolevels=1000
+set undofile
+set undodir=~/.vim/undodir
+set wildmenu
+set wildignore=*.swp,*.bak,*.pyc,*.class,node_modules
+set title
+set visualbell
+set noerrorbells
+"set mouse=a
+
+"mappings
+let mapleader=","
+nnoremap ; :
+inoremap jk <Esc>
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+map <Space> :noh<cr>
+nmap <leader>8 :TagbarToggle<cr>
+
+nnoremap <leader>. :CtrlPTag<cr>
+
+"ctrlp mappings
+let g:ctrlp_map='<C-p>'
+let g:ctrlp_cmd='CtrlP'
+let g:ctrlp_custom_ignore = {
+      \ 'dir': '\v[\/]\.(git|hg|svn)$|\v[\/](node_modules|vendor)',
+      \}
+
+"copilot mappings
+"imap <silent><script><expr> <leader><Tab> copilot#Accept("\<CR>")
+"" Enable copilot on additional filetypes
+"let g:copilot_filetypes = {
+"      \ 'yaml': v:true,
+"      \}
+"let g:copilot_no_tab_map = v:true

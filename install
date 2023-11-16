@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+#
+# Install script for all configured dotfiles.
+# This script is idempotent and can be run multiple times.
+#
+# If an existing (non-symlink) file is found, it will be backed up with a
+# timestamped suffix and replaced with a symlink to the dotfile in this repo.
+#
+# TODO: This entire script should move to Go, driven by a toml config file.
+#
+
+#set -x
+
+# Get the directory of this script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# All dotfiles to install
+# Lines prefixed with '#' are ignored
+# Format: <local path>, <target path>, <target name>
+read -r -d '' DOTS <<EOF
+testfile ${HOME} .testfile
+# tmux/tmux/.tmux.conf ${HOME}/.config/tmux tmux.conf
+# tmux/tmux.conf.local ${HOME}/.config/tmux tmux.conf.local
+# nvim/vimrc ${HOME} .vimrc
+
+# nvim/nvim ${HOME}/.config nvim
+EOF
+
+# Install all dotfiles in the list above
+while read -r line; do
+  # Skip comments and empty lines
+  [[ "$line" =~ ^\ *# ]] || [[ -z "$line" ]] && continue
+
+  # Split line into vars
+  read -r local_path target_path target_name <<< "$line"
+  #mapfile -t arr <<< "$line"
+  #readarray -td '' arr < <(awk '{ gsub(/, /,"\0"); print; }' <<<"$line, ")
+  #unset 'arr[-1]'
+  #declare -p arr
+
+  # Complete the local path and full target path
+  local_path="${DIR}/${local_path}"
+
+  # Create target directory if it doesn't exist
+  mkdir -p "${target_path}"
+
+  # If target file exists and is not a symlink, back it up
+  if [[ -f "${target_path}/${target_name}" && ! -L "${target_path}/${target_name}" ]]; then
+    mv "${target_path}/${target_name}" "${target_path}/${target_name}.$(date +%Y%m%d%H%M%S)"
+  fi
+
+  # Create symlink to local file
+  ln -sf "${local_path}" "${target_path}/${target_name}"
+done <<< "$DOTS"
+
+exit 0

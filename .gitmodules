@@ -1,0 +1,3 @@
+[submodule "tmux/omtmux"]
+	path = tmux/tmux
+	url = https://github.com/ahorine/.tmux
