@@ -129,10 +129,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ttqc010='ssh ahorine@ttqc-shell010'
-alias ttqc16='ssh ahorine@ttqc-shell16'
-alias baas='ssh ahorine@qn-baas-lb.juniper.net'
-alias ttqc='ttqc16'
 alias vim='nvim'
 alias sshfs='sshfs -o allow_other,default_permissions -o ServerAliveInterval=15 -o reconnect'
 alias ls='eza -g --icons --git'
