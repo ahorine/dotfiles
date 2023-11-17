@@ -394,9 +394,9 @@ set -g @plugin 'fcsonline/tmux-thumbs'
 
 
 #set-environment -g PATH "/Users/ahorine/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/ahorine/bin"
-run ${HOME}/.tmux/local_plugins/alive/alive.tmux
-run ${HOME}/.tmux/local_plugins/spellbook/spellbook.tmux
-run-shell ~/.tmux/plugins/tmux-thumbs/tmux-thumbs.tmux
+run ${HOME}/.config/tmux/local_plugins/alive/alive.tmux
+run ${HOME}/.config/tmux/local_plugins/spellbook/spellbook.tmux
+run-shell ${HOME}/.config/tmux/plugins/tmux-thumbs/tmux-thumbs.tmux
 
 set -g @thumbs-reverse enabled
 set -g @thumbs-command 'echo -n {} | pbcopy'
