@@ -131,7 +131,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias vim='nvim'
 alias sshfs='sshfs -o allow_other,default_permissions -o ServerAliveInterval=15 -o reconnect'
-alias ls='eza -g --icons --git'
+alias ls='eza -g --icons --git --git-repos'
 alias llt='eza -1 --icons --tree --git-ignore'
 
 # xcon command var
