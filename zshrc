@@ -1,5 +1,8 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/bin:$PATH:/usr/local/go/bin:/Users/ahorine/go/bin:/Users/ahorine/.local/bin
+export PATH=$HOME/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 #source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 #source "$HOME/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
@@ -69,7 +72,7 @@ export TERM="xterm-256color"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
+## Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -77,15 +80,30 @@ export TERM="xterm-256color"
 plugins=(
   git
   ssh-agent
-  zsh-vim-mode
-  zsh-autosuggestions
 )
-# zsh-vim-mode
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+if [[ -d ${ZSH}/custom/plugins/zsh-vim-mode ]]; then
+  plugins+=(zsh-vim-mode)
+fi
+if [[ -d ${ZSH}/custom/plugins/zsh-vi-mode ]]; then
+  plugins+=(zsh-vi-mode)
+fi
+
+plugins+=(zsh-autosuggestions)
+
+function add_zvm_bindings() {
+  echo "run bindings"
+  zvm_bindkey viins ',\t' autosuggest-accept
+}
+#zvm_after_lazy_keybindings_commands+=(add_zvm_bindings)
+#zvm_after_init_commands+=(add_zvm_bindings)
+
 source $ZSH/oh-my-zsh.sh
+
+#bindkey ',\t' autosuggest-accept
 
 #function zle-line-init zle-keymap-select {
 #  RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
@@ -138,14 +156,15 @@ alias llt='eza -1 --icons --tree --git-ignore'
 export XCON_CMD='bng ${XDA_HOST}'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/opt/node@16/bin:$PATH"
 
 export PATH="/usr/local/opt/node@16/bin:$PATH"
+#export PATH="/usr/local/opt/node@16/bin:$PATH"
 
 #load kconfigs
-source ~/.kube/config_env
+if [[ -d ~/.kube ]] && [[ -f ~/.kube/config_env ]]; then
+  source ~/.kube/config_env
+fi
 
-bindkey ',\t' autosuggest-accept
 
 # load zoxide
 eval "$(zoxide init zsh --cmd cd)"

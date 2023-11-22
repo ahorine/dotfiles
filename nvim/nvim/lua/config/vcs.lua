@@ -1,0 +1,2 @@
+-- Gitsigns
+require("gitsigns").setup()

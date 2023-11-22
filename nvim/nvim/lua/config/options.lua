@@ -1,6 +1,7 @@
 local undodir = vim.fn.stdpath('data') .. '/undo'
 
 -- General options
+vim.opt.mouse = ''
 vim.opt.syntax = 'on'
 vim.opt.termguicolors = true
 vim.opt.number = true
