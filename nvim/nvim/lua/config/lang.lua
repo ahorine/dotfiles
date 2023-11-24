@@ -17,7 +17,6 @@ require('copilot').setup({
 local lint = require('lint')
 -- - Configure linters
 lint.linters_by_ft = {
-  go = { 'golangcilint' },
   lua = { 'luacheck' },
   python = { 'flake8' },
   sh = { 'shellcheck' },
@@ -25,11 +24,19 @@ lint.linters_by_ft = {
   zsh = { 'zsh', 'shellcheck' },
 }
 -- - Create autocommand to lint on save
-vim.api.nvim_create_autocmd("BufWritePost", {
+vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()
     lint.try_lint()
   end,
 })
+-- Stop Lua from complaining about 'vim' global.
+lint.linters.luacheck.args = {
+  '--formatter', 'plain',
+  '--globals', 'vim',
+  '--codes',
+  '--ranges',
+  '-',
+}
 
 -- cmp + LuaSnips
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -79,3 +86,5 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
   group = format_sync_grp,
 })
+-- - Start LSP server
+require('lspconfig').gopls.setup({})

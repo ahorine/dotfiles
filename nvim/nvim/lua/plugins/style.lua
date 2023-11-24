@@ -42,4 +42,15 @@ return {
       vim.o.timeoutlen = 500
     end,
   },
+  -- - Traces
+  {
+    'markonm/traces.vim',
+  },
+  -- - Trouble
+  {
+    'folke/trouble.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+  },
 }
