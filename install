@@ -25,8 +25,9 @@ nvim/vimrc ${HOME} .vimrc
 nvim/nvim ${HOME}/.config nvim
 zshrc ${HOME} .zshrc
 starship.toml ${HOME}/.config starship.toml
+# On Darwin, the alacritty config isn't read when in the config directory,
+# so we'll also symlink it to the home directory.
 alacritty.yml ${HOME}/.config/alacritty .alacritty.yml
-# For some reason, alacritty isn't reading the config when it's in .config
 alacritty.yml ${HOME} .alacritty.yml
 EOF
 

@@ -388,17 +388,20 @@ tmux_conf_uninstall_plugins_on_reload=false
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @continuum-restore 'on'
 set -g @plugin 'laktak/extrakto'
 set -g @plugin 'fcsonline/tmux-thumbs'
 
-
-#set-environment -g PATH "/Users/ahorine/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/ahorine/bin"
-run ${HOME}/.config/tmux/local_plugins/alive/alive.tmux
+# Local plugins
 run ${HOME}/.config/tmux/local_plugins/spellbook/spellbook.tmux
-run-shell ${HOME}/.config/tmux/plugins/tmux-thumbs/tmux-thumbs.tmux
 
+# Plugin config
+# Continuum
+set -g @continuum-restore 'on'
+
+# Thumbs
+run-shell ${HOME}/.config/tmux/plugins/tmux-thumbs/tmux-thumbs.tmux
 set -g @thumbs-reverse enabled
+set -g @thumbs-unique enabled
 set -g @thumbs-command 'echo -n {} | pbcopy'
 set -g @thumbs-upcase-command 'tmux set-buffer -- {} && tmux paste-buffer'
 

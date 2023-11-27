@@ -1,7 +1,7 @@
-set nocompatible
+"set nocompatible
 
-call pathogen#helptags()
-call pathogen#infect()
+"call pathogen#helptags()
+"call pathogen#infect()
 
 "if (has("termguicolors"))
 "  set termguicolors
@@ -14,24 +14,24 @@ let g:rehash256 = 1
 syntax enable
 
 "ALE
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_text_changed = 'always'
+"let g:ale_fix_on_save = 1
+"let g:ale_lint_on_text_changed = 'always'
 
-let g:ale_linters = {
-      \ 'sh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
-      \ 'zsh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
-      \ 'yaml': ['yamllint'],
-      \ 'python': ['flake8', 'mypy', 'pylint', 'pyls'],
-      \}
-      " 'zsh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
+"let g:ale_linters = {
+"      \ 'sh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
+"      \ 'zsh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
+"      \ 'yaml': ['yamllint'],
+"      \ 'python': ['flake8', 'mypy', 'pylint', 'pyls'],
+"      \}
+"      " 'zsh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck'],
 
-let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'go': ['gofmt', 'gofumpt', 'goimports', 'golines'],
-      \}
+"let g:ale_fixers = {
+"      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+"      \ 'go': ['gofmt', 'gofumpt', 'goimports', 'golines'],
+"      \}
 
 "YCM
-let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
 
 
 "airline
@@ -67,7 +67,7 @@ set noerrorbells
 "set mouse=a
 
 "mappings
-let mapleader=","
+let mapleader=','
 nnoremap ; :
 inoremap jk <Esc>
 map <C-h> <C-w>h
@@ -75,16 +75,16 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 map <Space> :noh<cr>
-nmap <leader>8 :TagbarToggle<cr>
+"nmap <leader>8 :TagbarToggle<cr>
 
-nnoremap <leader>. :CtrlPTag<cr>
+"nnoremap <leader>. :CtrlPTag<cr>
 
 "ctrlp mappings
-let g:ctrlp_map='<C-p>'
-let g:ctrlp_cmd='CtrlP'
-let g:ctrlp_custom_ignore = {
-      \ 'dir': '\v[\/]\.(git|hg|svn)$|\v[\/](node_modules|vendor)',
-      \}
+"let g:ctrlp_map='<C-p>'
+"let g:ctrlp_cmd='CtrlP'
+"let g:ctrlp_custom_ignore = {
+"      \ 'dir': '\v[\/]\.(git|hg|svn)$|\v[\/](node_modules|vendor)',
+"      \}
 
 "copilot mappings
 "imap <silent><script><expr> <leader><Tab> copilot#Accept("\<CR>")
