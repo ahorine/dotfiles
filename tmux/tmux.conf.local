@@ -390,9 +390,7 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'laktak/extrakto'
 set -g @plugin 'fcsonline/tmux-thumbs'
-
-# Local plugins
-run ${HOME}/.config/tmux/local_plugins/spellbook/spellbook.tmux
+set -g @plugin 'ahorine/tmux-spellbook'
 
 # Plugin config
 # Continuum
@@ -405,6 +403,7 @@ set -g @thumbs-unique enabled
 set -g @thumbs-command 'echo -n {} | pbcopy'
 set -g @thumbs-upcase-command 'tmux set-buffer -- {} && tmux paste-buffer'
 
+# Custom bindings
 bind t "choose-tree -Z"
 bind q "killw"
 

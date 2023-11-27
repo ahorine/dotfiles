@@ -19,8 +19,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 read -r -d '' DOTS <<EOF
 tmux/tmux/.tmux.conf ${HOME}/.config/tmux tmux.conf
 tmux/tmux.conf.local ${HOME}/.config/tmux tmux.conf.local
-# temporary until the local plugin is moved to the plugin manager
-tmux/plugins ${HOME}/.config/tmux local_plugins
 nvim/vimrc ${HOME} .vimrc
 nvim/nvim ${HOME}/.config nvim
 zshrc ${HOME} .zshrc

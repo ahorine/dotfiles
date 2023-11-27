@@ -35,6 +35,12 @@ lint.linters.luacheck.args = {
   '--ranges',
   '-',
 }
+-- Add '-x' to shellcheck
+lint.linters.shellcheck.args = {
+  '-x',
+  '--format', 'json',
+  '-',
+}
 
 -- cmp + LuaSnips
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
