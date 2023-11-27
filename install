@@ -79,6 +79,7 @@ You may need to install the following:
 - tmux
 - neovim
 - fzf
+- g++
 
 Some additional setup might be required for WSL2/Windows.
 

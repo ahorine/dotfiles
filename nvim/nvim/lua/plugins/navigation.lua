@@ -13,4 +13,10 @@ return {
   {
     'ggandor/leap.nvim',
   },
+  -- Session management
+  -- - Persisted
+  {
+    'olimorris/persisted.nvim',
+    config = true,
+  },
 }
