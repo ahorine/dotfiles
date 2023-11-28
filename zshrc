@@ -100,6 +100,7 @@ function add_zvm_bindings() {
 }
 #zvm_after_lazy_keybindings_commands+=(add_zvm_bindings)
 #zvm_after_init_commands+=(add_zvm_bindings)
+export ZSH_DISABLE_COMPFIX=true
 
 source $ZSH/oh-my-zsh.sh
 

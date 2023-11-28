@@ -30,3 +30,5 @@ vim.keymap.set("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers
 vim.keymap.set("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", { noremap = true })
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope persisted<cr>", { noremap = true })
 vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<cr>", { noremap = true })
+-- - Winshift
+vim.keymap.set("n", "<C-w><C-m>", "<cmd>WinShift<cr>", { noremap = true })

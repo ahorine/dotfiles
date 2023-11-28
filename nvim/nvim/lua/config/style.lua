@@ -41,3 +41,6 @@ require('nvim-treesitter.configs').setup {
 
 -- Use nvim-notify
 vim.notify = require('notify')
+
+-- Winshift
+require('winshift').setup()

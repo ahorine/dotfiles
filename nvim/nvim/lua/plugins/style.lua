@@ -44,4 +44,8 @@ return {
       'nvim-tree/nvim-web-devicons',
     },
   },
+  -- - Winshift
+  {
+    'sindrets/winshift.nvim',
+  },
 }
