@@ -29,8 +29,13 @@ return {
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
   },
-  
-  -- cmp + LuaSnips
+  -- LuaSnips
+  {
+    'L3MON4D3/LuaSnip',
+    version = 'v2.*',
+    build = 'make install_jsregexp',
+  },
+  -- cmp
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -43,4 +48,11 @@ return {
       'L3MON4D3/LuaSnip',
     },
   },
+  -- Markdown Previewing
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  }
 }

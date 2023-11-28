@@ -158,9 +158,6 @@ export XCON_CMD='bng ${XDA_HOST}'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="/usr/local/opt/node@16/bin:$PATH"
-#export PATH="/usr/local/opt/node@16/bin:$PATH"
-
 #load kconfigs
 if [[ -d ~/.kube ]] && [[ -f ~/.kube/config_env ]]; then
   source ~/.kube/config_env

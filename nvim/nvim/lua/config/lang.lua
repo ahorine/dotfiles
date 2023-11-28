@@ -20,6 +20,7 @@ lint.linters_by_ft = {
   sh = { 'shellcheck' },
   vim = { 'vint' },
   zsh = { 'zsh', 'shellcheck' },
+  markdown = { 'markdownlint' },
 }
 -- - Create autocommand to lint on save
 vim.api.nvim_create_autocmd("CursorHold", {
@@ -65,7 +66,7 @@ cmp.setup({
     { name = 'nvim_lua' },
     { name = 'luasnip' },
     { name = 'neorg' },
-  },{
+  }, {
     { name = 'buffer' },
     { name = 'path' },
   },
