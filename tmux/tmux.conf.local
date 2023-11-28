@@ -228,7 +228,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" #{loadavg} | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , #{network_bandwidth} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -391,6 +391,7 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'laktak/extrakto'
 set -g @plugin 'fcsonline/tmux-thumbs'
 set -g @plugin 'ahorine/tmux-spellbook'
+set -g @plugin 'xamut/tmux-network-bandwidth'
 
 # Plugin config
 # Continuum
@@ -402,6 +403,9 @@ set -g @thumbs-reverse enabled
 set -g @thumbs-unique enabled
 set -g @thumbs-command 'echo -n {} | pbcopy'
 set -g @thumbs-upcase-command 'tmux set-buffer -- {} && tmux paste-buffer'
+
+# Network Bandwidth
+set-option -g @tmux-network-bandwidth-padding 5
 
 # Custom bindings
 bind t "choose-tree -Z"
