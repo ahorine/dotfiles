@@ -79,10 +79,18 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' },
   }),
 })
+require('luasnip').setup()
 
 -- Golang
 -- - Load
-require('go').setup()
+require('go').setup({
+  trouble = true,
+  run_in_floaterm = true,
+  floaterm = {
+    title_colors = 'tokyo',
+  },
+  luasnip = true,
+})
 -- - Format on save
 local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
