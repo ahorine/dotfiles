@@ -32,3 +32,7 @@ vim.keymap.set("n", "<leader>fs", "<cmd>Telescope persisted<cr>", { noremap = tr
 vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<cr>", { noremap = true })
 -- - Winshift
 vim.keymap.set("n", "<C-w><C-m>", "<cmd>WinShift<cr>", { noremap = true })
+-- - LuaSnip
+vim.keymap.set("i", "<C-K>", "<cmd>lua require('luasnip').expand()<cr>", { silent = true })
+vim.keymap.set("i", "<C-L>", "<cmd>lua require('luasnip').jump(1)<cr>", { silent = true })
+vim.keymap.set("i", "<C-H>", "<cmd>lua require('luasnip').jump(-1)<cr>", { silent = true })

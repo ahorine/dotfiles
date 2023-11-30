@@ -42,3 +42,5 @@ require('neorg').setup({
     },
   },
 })
+-- Mask characters by default
+vim.wo.conceallevel = 2

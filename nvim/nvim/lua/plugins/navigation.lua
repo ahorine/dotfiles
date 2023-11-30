@@ -14,9 +14,9 @@ return {
     'ggandor/leap.nvim',
   },
   -- Session management
-  -- - Persisted
+  -- - autosession
   {
-    'olimorris/persisted.nvim',
-    config = true,
+    'pysan3/autosession.nvim',
+    event = { 'VeryLazy' },
   },
 }
