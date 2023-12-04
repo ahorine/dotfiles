@@ -27,6 +27,7 @@ vim.opt.wildmenu = true
 vim.opt.wildignore = '*.o,*~,*.pyc,*.swp,*.class,*.DS_Store,*.git,node_modules'
 vim.opt.title = true
 vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+vim.opt.foldlevelstart = 99
 
 -- Global options
 vim.g.mapleader = ','

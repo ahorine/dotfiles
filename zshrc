@@ -87,9 +87,9 @@ export ZSH="$HOME/.oh-my-zsh"
 
 if [[ -d ${ZSH}/custom/plugins/zsh-vim-mode ]]; then
   plugins+=(zsh-vim-mode)
-fi
-if [[ -d ${ZSH}/custom/plugins/zsh-vi-mode ]]; then
+elif [[ -d ${ZSH}/custom/plugins/zsh-vi-mode ]]; then
   plugins+=(zsh-vi-mode)
+  export RPS1="%{$reset_color%}"
 fi
 
 plugins+=(zsh-autosuggestions)

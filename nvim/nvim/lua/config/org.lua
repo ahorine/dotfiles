@@ -6,7 +6,7 @@ require('neorg').setup({
     ['core.defaults'] = {},
     ['core.concealer'] = {
       config = {
-        folds = false,
+        icon_preset = 'diamond',
       },
     },
     ['core.export'] = {},
@@ -40,6 +40,7 @@ require('neorg').setup({
         default_keybinds = true,
       },
     },
+    ['core.ui.calendar'] = {},
   },
 })
 -- Mask characters by default
