@@ -19,6 +19,9 @@ require('telescope').setup {
 -- Leap
 require('leap').add_default_mappings()
 
+-- Registers
+require('registers').setup()
+
 -- Session management
 -- - autosession
 require('autosession').setup {

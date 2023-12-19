@@ -9,6 +9,11 @@ require('neorg').setup({
         icon_preset = 'diamond',
       },
     },
+    ['core.qol.toc'] = {
+      config = {
+        close_after_use = true,
+      },
+    },
     ['core.export'] = {},
     ['core.export.markdown'] = {
       config = {
@@ -40,7 +45,11 @@ require('neorg').setup({
         default_keybinds = true,
       },
     },
-    ['core.ui.calendar'] = {},
+    ['core.presenter'] = {
+      config = {
+        zen_mode = 'zen-mode',
+      },
+    },
   },
 })
 -- Mask characters by default

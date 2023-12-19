@@ -13,6 +13,16 @@ return {
   {
     'ggandor/leap.nvim',
   },
+  -- Registers
+  {
+    "tversteeg/registers.nvim",
+    name = "registers",
+    keys = {
+      { "\"",    mode = { "n", "v" } },
+      { "<C-R>", mode = "i" }
+    },
+    cmd = "Registers",
+  },
   -- Session management
   -- - autosession
   {

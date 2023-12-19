@@ -44,3 +44,16 @@ vim.notify = require('notify')
 
 -- Winshift
 require('winshift').setup()
+
+-- ZenMode
+require('zen-mode').setup({
+  window = {
+    width = .85,
+  },
+  plugins = {
+    alacritty = {
+      enabled = true,
+      font = "20",
+    },
+  },
+})

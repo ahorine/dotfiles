@@ -13,4 +13,8 @@ return {
     },
     cmd = 'Neorg',
   },
+  -- Venn
+  {
+    'jbyuki/venn.nvim',
+  },
 }

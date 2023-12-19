@@ -48,4 +48,12 @@ return {
   {
     'sindrets/winshift.nvim',
   },
+  -- - ZenMode
+  {
+    'folke/zen-mode.nvim',
+  },
+  -- - numbertoggle
+  {
+    'sitiom/nvim-numbertoggle',
+  },
 }
