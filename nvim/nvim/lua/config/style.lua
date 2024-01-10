@@ -5,8 +5,8 @@ require("tokyonight").setup({
 })
 vim.cmd[[colorscheme tokyonight]]
 
--- Set Lualine to use Tokyonight theme
-require("lualine").setup({
+-- Lualine
+require('lualine').setup({
   options = {
     theme = 'tokyonight'
   },
@@ -57,3 +57,6 @@ require('zen-mode').setup({
     },
   },
 })
+
+-- Which Key
+require('which-key').setup()

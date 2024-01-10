@@ -1,7 +1,8 @@
 return {
   -- Telescope
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.4',
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.4',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
@@ -23,10 +24,16 @@ return {
     },
     cmd = "Registers",
   },
-  -- Session management
-  -- - autosession
+  -- Marks
   {
-    'pysan3/autosession.nvim',
-    event = { 'VeryLazy' },
+    'chentoast/marks.nvim'
+  },
+  -- Buffer Manager
+  {
+    'j-morano/buffer_manager.nvim',
+  },
+  -- Better Quickfix
+  {
+    'kevinhwang91/nvim-bqf',
   },
 }

@@ -1,8 +1,24 @@
 -- Language Plugins
 return {
+  -- Mason
+  {
+    'williamboman/mason.nvim'
+  },
+  -- Mason LSP Config
+  {
+    'williamboman/mason-lspconfig.nvim',
+  },
+  -- Mason Lint Config
+  {
+    'rshkarin/mason-nvim-lint',
+  },
   -- LSP Config
   {
     'neovim/nvim-lspconfig',
+  },
+  -- LSP Kind
+  {
+    'onsails/lspkind.nvim',
   },
   -- Linting
   {
@@ -13,6 +29,14 @@ return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     event = 'InsertEnter',
+  },
+  -- Codeium
+  {
+    'Exafunction/codeium.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'hrsh7th/nvim-cmp',
+    },
   },
   -- Golang
   {
@@ -34,6 +58,9 @@ return {
     'L3MON4D3/LuaSnip',
     version = 'v2.*',
     build = 'make install_jsregexp',
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+    },
   },
   -- cmp
   {

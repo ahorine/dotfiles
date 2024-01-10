@@ -22,9 +22,9 @@ require('leap').add_default_mappings()
 -- Registers
 require('registers').setup()
 
--- Session management
--- - autosession
-require('autosession').setup {
-  restore_on_setup = true,
-  autosave_on_quit = true,
-}
+-- Marks
+require('marks').setup()
+
+-- Buffers
+require('buffer_manager').setup()
+vim.api.nvim_set_hl(0, 'BufferManagerModified', { fg = '#af0000' })

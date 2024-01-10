@@ -28,6 +28,8 @@ vim.opt.wildignore = '*.o,*~,*.pyc,*.swp,*.class,*.DS_Store,*.git,node_modules'
 vim.opt.title = true
 vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 vim.opt.foldlevelstart = 99
+vim.opt.timeout = true
+vim.opt.timeoutlen = 300
 
 -- Global options
 vim.g.mapleader = ','

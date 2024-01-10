@@ -1,13 +1,14 @@
 -- Preconfig
 require("config.options")
-require("config.mappings")
 
 -- Plugin manager
 require("config.lazy")
 
 -- Postconfig
+require("config.mappings")
 require("config.style")
 require("config.vcs")
 require("config.lang")
 require("config.navigation")
 require("config.org")
+require("config.editing")

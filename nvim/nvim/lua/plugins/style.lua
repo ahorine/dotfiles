@@ -56,4 +56,8 @@ return {
   {
     'sitiom/nvim-numbertoggle',
   },
+  -- - Which-Key
+  {
+    'folke/which-key.nvim',
+  },
 }
