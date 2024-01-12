@@ -12,6 +12,8 @@ return {
       'mfussenegger/nvim-dap',
       'folke/neodev.nvim',
       'theHamsta/nvim-dap-virtual-text',
+      'liadoz/nvim-dap-repl-highlights',
+      'rcarriga/cmp-dap',
     },
   },
 }

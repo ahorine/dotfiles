@@ -43,6 +43,10 @@ require('neorg').setup({
     ['core.keybinds'] = {
       config = {
         default_keybinds = true,
+        hook = function(keybinds)
+          -- "<M-CR>", "core.itero.next-iteration", "<CR>", opts = { desc = "[neorg] Continue Object" }
+          keybinds.remap_key('norg', 'i', '<M-CR>', '<leader><CR>')
+        end,
       },
     },
     ['core.presenter'] = {

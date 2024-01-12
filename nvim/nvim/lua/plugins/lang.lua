@@ -25,11 +25,11 @@ return {
     'mfussenegger/nvim-lint',
   },
   -- Copilot
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-  },
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   cmd = 'Copilot',
+  --   event = 'InsertEnter',
+  -- },
   -- Codeium
   {
     'Exafunction/codeium.nvim',

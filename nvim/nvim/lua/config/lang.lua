@@ -10,26 +10,27 @@ require('mason-lspconfig').setup_handlers({
     end
   end,
 })
+-- START CONFIG
 
 -- Copilot
-require('copilot').setup({
-  suggestion = {
-    auto_trigger = true,
-    keymap = {
-      accept = '<leader><Tab>'
-    }
-  },
-  filetypes = {
-    ['*'] = false,
-  },
-})
+-- require('copilot').setup({
+--   suggestion = {
+--     auto_trigger = true,
+--     keymap = {
+--       accept = '<leader><Tab>'
+--     }
+--   },
+--   filetypes = {
+--     ['*'] = false,
+--   },
+-- })
 
 -- Codeium
 require('codeium').setup({})
 
 -- Linting
 local lint = require('lint')
--- - Configure linters
+-- - Configure linters -- Mason to handle this
 lint.linters_by_ft = {
   -- lua = { 'luacheck' },
   -- python = { 'flake8' },
@@ -45,15 +46,15 @@ vim.api.nvim_create_autocmd("CursorHold", {
   end,
 })
 -- Stop Lua from complaining about 'vim' global.
-lint.linters.luacheck.args = {
-  '--formatter', 'plain',
-  '--globals', 'vim',
-  '--codes',
-  '--ranges',
-  '-',
-}
+-- lint.linters.luacheck.args = { -- This seems to be obsoleted by Mason, which relies on a .luarc.json file for rules
+--   '--formatter', 'plain',
+--   '--globals', 'vim',
+--   '--codes',
+--   '--ranges',
+--   '-',
+-- }
 -- Add '-x' to shellcheck
-lint.linters.shellcheck.args = {
+lint.linters.shellcheck.args = { -- Unsure if this does anything currently
   '-x',
   '--format', 'json',
   '-',
@@ -79,12 +80,12 @@ cmp.setup({
   }),
   sources = {
     { name = 'nvim_lsp', keyword_length = 1 },
-    { name = 'nvim_lua' },
+    { name = 'nvim_lua', keyword_length = 2 },
     { name = 'luasnip', keyword_length = 2 },
     { name = 'neorg', keyword_length = 2},
     { name = 'codeium', keyword_length = 1 },
   }, {
-    { name = 'buffer', keyword_length = 3 },
+    { name = 'buffer', keyword_length = 2 },
     { name = 'path' },
   },
   formatting = {
@@ -97,6 +98,14 @@ cmp.setup({
   },
   window = {
     documentation = cmp.config.window.bordered(),
+  },
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+  end,
+})
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  sources = {
+    { name = "dap" },
   },
 })
 cmp.setup.cmdline(':', {
@@ -136,5 +145,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 local cfg = require('go.lsp').config()
 require('lspconfig').gopls.setup(cfg)
 
+-- END CONFIG
 -- Mason lint
 require('mason-nvim-lint').setup()
