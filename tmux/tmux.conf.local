@@ -411,9 +411,18 @@ set -g @bw-copy-to-clipboard 'on'
 # Network Bandwidth
 set-option -g @tmux-network-bandwidth-padding 5
 
-# Custom bindings
+# -- Custom bindings -----------------------------------------------------------
 bind t "choose-tree -Z"
 bind q "killw"
+# Copy-mode
+# # <Esc> to clear or cancel
+bind -T copy-mode-vi Escape if-shell -F '#{selection_present}' \
+                                        'send -X clear-selection' \
+                                        'send -X cancel' \
+# # <v> to toggle selection
+bind -T copy-mode-vi v if-shell -F '#{selection_present}' \
+                                   'send -X clear-selection' \
+                                   'send -X begin-selection' \
 
 set -g default-terminal "alacritty"
 
