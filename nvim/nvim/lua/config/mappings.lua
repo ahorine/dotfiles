@@ -50,6 +50,14 @@ map("n", "<C-w><C-m>", "<cmd>WinShift<cr>", { noremap = true })
 map("i", "<C-K>", "<cmd>lua require('luasnip').expand()<cr>", { silent = true })
 map("i", "<C-L>", "<cmd>lua require('luasnip').jump(1)<cr>", { silent = true })
 map("i", "<C-H>", "<cmd>lua require('luasnip').jump(-1)<cr>", { silent = true })
+-- - Scissors
+wk.register({
+  s = {
+    name = 'Scissors',
+    e = { function() require('scissors').editSnippet() end, 'Edit snippet', },
+    a = { function() require('scissors').addNewSnippet() end, 'Add snippet', mode = { 'n', 'x' }, },
+  },
+}, { prefix = '<leader>' })
 -- - Venn
 function _G.Toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)

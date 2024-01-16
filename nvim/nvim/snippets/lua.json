@@ -1,0 +1,14 @@
+{
+  "setup (No config)": {
+    "body": "require('${1:Plugin Name}').setup()",
+    "prefix": "setup (No config)"
+  },
+  "setup (With config)": {
+    "body": [
+      "require('${1:Plugin Name}').setup({",
+      "  $0",
+      "})"
+    ],
+    "prefix": "setup (With config)"
+  }
+}

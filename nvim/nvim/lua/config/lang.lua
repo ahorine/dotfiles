@@ -60,6 +60,20 @@ lint.linters.shellcheck.args = { -- Unsure if this does anything currently
   '-',
 }
 
+-- Todo Comments
+require('todo-comments').setup()
+
+-- Scissors
+local snipDir = vim.fn.stdpath('config') .. '/snippets'
+require('scissors').setup({
+  snippetDir = snipDir,
+  jsonFormatter = 'jq',
+  editSnippetPopup = {
+    keymaps = {
+      deleteSnippet = '<leader>sd',
+    },
+  },
+})
 -- cmp + LuaSnips
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 local cmp = require('cmp')
@@ -81,10 +95,11 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp', keyword_length = 1 },
     { name = 'nvim_lua', keyword_length = 2 },
-    { name = 'luasnip', keyword_length = 2 },
-    { name = 'neorg', keyword_length = 2},
-    { name = 'codeium', keyword_length = 1 },
-  }, {
+    { name = 'luasnip',  keyword_length = 2 },
+    { name = 'neorg',    keyword_length = 2 },
+    { name = 'codeium',  keyword_length = 1 },
+  },
+  {
     { name = 'buffer', keyword_length = 2 },
     { name = 'path' },
   },
@@ -117,7 +132,11 @@ cmp.setup.cmdline(':', {
   }),
 })
 require('luasnip').setup()
-require('luasnip.loaders.from_vscode').lazy_load()
+require('luasnip.loaders.from_vscode').lazy_load({
+  paths = {
+    snipDir,
+  },
+})
 
 -- LSP
 

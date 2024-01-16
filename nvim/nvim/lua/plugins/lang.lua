@@ -24,6 +24,11 @@ return {
   {
     'mfussenegger/nvim-lint',
   },
+  -- Todo Comments
+  {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
   -- Copilot
   -- {
   --   'zbirenbaum/copilot.lua',
@@ -60,6 +65,13 @@ return {
     build = 'make install_jsregexp',
     dependencies = {
       'rafamadriz/friendly-snippets',
+    },
+  },
+  -- Scissors
+  {
+    'chrisgrieser/nvim-scissors',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
     },
   },
   -- cmp
