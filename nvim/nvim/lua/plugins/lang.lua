@@ -20,6 +20,11 @@ return {
   {
     'onsails/lspkind.nvim',
   },
+  -- LSP Signature
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+  },
   -- Linting
   {
     'mfussenegger/nvim-lint',

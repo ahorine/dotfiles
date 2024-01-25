@@ -6,6 +6,12 @@
           "lua"
         ],
         "path": "./lua.json"
+      },
+      {
+        "language": [
+          "norg"
+        ],
+        "path": "./norg.json"
       }
     ]
   },

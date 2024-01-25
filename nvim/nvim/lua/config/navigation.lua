@@ -20,7 +20,11 @@ require('telescope').setup {
 require('leap').add_default_mappings()
 
 -- Registers
-require('registers').setup()
+require('registers').setup({
+  window = {
+    border = 'rounded',
+  },
+})
 
 -- Marks
 require('marks').setup()

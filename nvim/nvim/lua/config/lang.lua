@@ -113,6 +113,7 @@ cmp.setup({
   },
   window = {
     documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered(),
   },
   enabled = function()
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
@@ -131,7 +132,14 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' },
   }),
 })
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
 require('luasnip').setup()
+require('luasnip.loaders.from_vscode').lazy_load()
 require('luasnip.loaders.from_vscode').lazy_load({
   paths = {
     snipDir,
@@ -139,11 +147,23 @@ require('luasnip.loaders.from_vscode').lazy_load({
 })
 
 -- LSP
+require('lspconfig.ui.windows').default_options = {
+  border = 'rounded',
+}
+
+-- LSP Signature
+require('lsp_signature').setup({
+  bind = true,
+  handler_opts = {
+    border = 'rounded',
+  },
+})
 
 -- Golang
 -- - Load
 require('go').setup({
   lsp_config = false,
+  lsp_keymaps = false,
   trouble = true,
   run_in_floaterm = true,
   floaterm = {

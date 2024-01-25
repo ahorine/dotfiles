@@ -36,7 +36,6 @@ require('neorg').setup({
     ['core.completion'] = {
       config = {
         engine = 'nvim-cmp',
-        name = '[Norg]',
       },
     },
     ['core.integrations.nvim-cmp'] = {},

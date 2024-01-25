@@ -45,16 +45,6 @@ return {
       'nvim-tree/nvim-web-devicons',
     },
   },
-  -- - Noice
-  {
-    'folke/noice.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify',
-      'nvim-treesitter/nvim-treesitter',
-    },
-  },
   -- - Winshift
   {
     'sindrets/winshift.nvim',

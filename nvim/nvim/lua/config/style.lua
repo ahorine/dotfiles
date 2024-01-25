@@ -5,19 +5,23 @@ require("tokyonight").setup({
 })
 vim.cmd [[colorscheme tokyonight]]
 
+-- Add borders
+local borderStyle = 'rounded'
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = borderStyle })
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = borderStyle })
+vim.diagnostic.config({
+  float = {
+    border = borderStyle,
+  },
+})
+
+-- Notify
+vim.notify = require("notify")
+
 -- Lualine
 require('lualine').setup({
   options = {
     theme = 'tokyonight'
-  },
-  sections = {
-    lualine_x = {
-      {
-        require("noice").api.statusline.mode.get,
-        cond = require("noice").api.statusline.mode.has,
-        color = { fg = "#ff9e64" },
-      },
-    },
   },
 })
 
@@ -47,24 +51,6 @@ require('nvim-treesitter.configs').setup {
     additional_vim_regex_highlighting = true,
   }
 }
-
--- Noice
-require('noice').setup({
-  lsp = {
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
-    },
-  },
-  presets = {
-    long_message_to_split = true,
-    lsp_doc_border = true,
-  },
-  cmdline = {
-    view = "cmdline",
-  },
-})
 
 -- Winshift
 require('winshift').setup()

@@ -1,0 +1,6 @@
+{
+  "jira (anchored link)": {
+    "body": "[${1:Ticket ID}]{${2:URL}}[: ${3:Title}]",
+    "prefix": "jira (anchored link)"
+  }
+}
