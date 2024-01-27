@@ -12,6 +12,12 @@
           "norg"
         ],
         "path": "./norg.json"
+      },
+      {
+        "language": [
+          "go"
+        ],
+        "path": "./go.json"
       }
     ]
   },

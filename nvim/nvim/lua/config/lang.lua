@@ -45,14 +45,6 @@ vim.api.nvim_create_autocmd("CursorHold", {
     lint.try_lint()
   end,
 })
--- Stop Lua from complaining about 'vim' global.
--- lint.linters.luacheck.args = { -- This seems to be obsoleted by Mason, which relies on a .luarc.json file for rules
---   '--formatter', 'plain',
---   '--globals', 'vim',
---   '--codes',
---   '--ranges',
---   '-',
--- }
 -- Add '-x' to shellcheck
 lint.linters.shellcheck.args = { -- Unsure if this does anything currently
   '-x',
@@ -172,17 +164,37 @@ require('go').setup({
   luasnip = true,
 })
 -- - Format on save
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    require('go.format').goimport()
-  end,
-  group = format_sync_grp,
+-- local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*.go",
+--   callback = function()
+--     require('go.format').goimport()
+--   end,
+--   group = format_sync_grp,
+-- })
+
+-- Navigator
+require('navigator').setup({
+  mason = true,
+  border = 'single',
+  -- TODO: Update all the icons to use good ones instead of emojis
+  keymaps = {
+    { key = '<space>k', func = vim.lsp.buf.signature_help, desc = 'signature_help', },
+  },
+  -- TODO: Hook on_attach and update descriptions via which-key for all the mappings
+  -- on_attach = function(client, bufnr)
+  -- end,
+  lsp = {
+    gopls = function()
+      local cfg = require('go.lsp').config()
+      return cfg
+    end,
+  },
 })
--- - Start LSP server
-local cfg = require('go.lsp').config()
-require('lspconfig').gopls.setup(cfg)
+vim.cmd("autocmd FileType guihua lua require('cmp').setup.buffer { enabled = false }")
+vim.cmd("autocmd FileType guihua_rust lua require('cmp').setup.buffer { enabled = false }")
+-- local cfg = require('go.lsp').config()
+-- require('lspconfig').gopls.setup(cfg)
 
 -- END CONFIG
 -- Mason lint

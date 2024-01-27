@@ -90,43 +90,43 @@ wk.register({
 -- - LSP
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-wk.register({
-  d = {
-    name = '+Diagnostics',
-    e = { vim.diagnostic.open_float, "Open diagnostics in a float" },
-    q = { vim.diagnostic.setloclist, "Open diagnostics in quickfix list" },
-    n = { vim.diagnostic.goto_next, "Jump to next diagnostic" },
-    N = { vim.diagnostic.goto_prev, "Jump to previous diagnostic" },
-  },
-}, { prefix = '<leader>' })
+-- wk.register({
+--   d = {
+--     name = '+Diagnostics',
+--     e = { vim.diagnostic.open_float, "Open diagnostics in a float" },
+--     q = { vim.diagnostic.setloclist, "Open diagnostics in quickfix list" },
+--     n = { vim.diagnostic.goto_next, "Jump to next diagnostic" },
+--     N = { vim.diagnostic.goto_prev, "Jump to previous diagnostic" },
+--   },
+-- }, { prefix = '<leader>' })
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    wk.register({
-      g = {
-        name = '+Goto...',
-        d = { vim.lsp.buf.definition, 'Goto definition' },
-        D = { vim.lsp.buf.declaration, 'Goto declaration' },
-        i = { vim.lsp.buf.implementation, 'Goto implementation' },
-        t = { vim.lsp.buf.type_definition, 'Goto type definition' },
-        r = { vim.lsp.buf.references, 'Goto references' },
-      },
-      l = {
-        name = '+LSP actions',
-        r = { vim.lsp.buf.rename, 'Rename' },
-        a = { vim.lsp.buf.code_action, 'Code action' },
-        h = { vim.lsp.buf.hover, 'Hover' },
-        f = { function() vim.lsp.buf.format { async = true } end, 'Format' },
-      },
-    }, {
-      prefix = '<leader>',
-      buffer = ev.buf,
-    })
-  end,
-})
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+--   callback = function(ev)
+--     -- Enable completion triggered by <c-x><c-o>
+--     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+--     -- Buffer local mappings.
+--     -- See `:help vim.lsp.*` for documentation on any of the below functions
+--     wk.register({
+--       g = {
+--         name = '+Goto...',
+--         d = { vim.lsp.buf.definition, 'Goto definition' },
+--         D = { vim.lsp.buf.declaration, 'Goto declaration' },
+--         i = { vim.lsp.buf.implementation, 'Goto implementation' },
+--         t = { vim.lsp.buf.type_definition, 'Goto type definition' },
+--         r = { vim.lsp.buf.references, 'Goto references' },
+--       },
+--       l = {
+--         name = '+LSP actions',
+--         r = { vim.lsp.buf.rename, 'Rename' },
+--         a = { vim.lsp.buf.code_action, 'Code action' },
+--         h = { vim.lsp.buf.hover, 'Hover' },
+--         f = { function() vim.lsp.buf.format { async = true } end, 'Format' },
+--       },
+--     }, {
+--       prefix = '<leader>',
+--       buffer = ev.buf,
+--     })
+--   end,
+-- })

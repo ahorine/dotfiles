@@ -22,8 +22,8 @@ return {
   },
   -- LSP Signature
   {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
+    'ray-x/lsp_signature.nvim',
+    event = 'VeryLazy',
   },
   -- Linting
   {
@@ -52,16 +52,29 @@ return {
   {
     'ray-x/go.nvim',
     dependencies = {
-      'ray-x/guihua.lua',
+      {
+        'ray-x/guihua.lua',
+        build = 'cd lua/fzy && make',
+      },
       'neovim/nvim-lspconfig',
       'nvim-treesitter/nvim-treesitter',
     },
-    config = function()
-      require('go').setup()
-    end,
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
+  },
+  -- Navigator
+  {
+    'ray-x/navigator.lua',
+    dependencies = {
+      {
+        'ray-x/guihua.lua',
+        build = 'cd lua/fzy && make',
+      },
+      'neovim/nvim-lspconfig',
+      'nvim-treesitter/nvim-treesitter',
+      'ray-x/lsp_signature.nvim',
+    },
   },
   -- LuaSnips
   {
