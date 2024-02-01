@@ -1,15 +1,13 @@
 -- Mason - KEEP AT TOP
 require('mason').setup()
-require('mason-lspconfig').setup({
-  automatic_installation = true,
-})
-require('mason-lspconfig').setup_handlers({
-  function(server_name)
-    if server_name ~= "gopls" then
-      require('lspconfig')[server_name].setup({})
-    end
-  end,
-})
+require('mason-lspconfig').setup({})
+-- require('mason-lspconfig').setup_handlers({
+--   function(server_name)
+--     if server_name ~= "gopls" then
+--       require('lspconfig')[server_name].setup({})
+--     end
+--   end,
+-- })
 -- START CONFIG
 
 -- Copilot
