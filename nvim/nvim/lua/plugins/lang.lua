@@ -50,8 +50,7 @@ return {
   },
   -- Golang
   {
-    'ahorine/go.nvim',
-    branch = 'query-updates',
+    'ray-x/go.nvim',
     dependencies = {
       {
         'ray-x/guihua.lua',
@@ -66,8 +65,7 @@ return {
   },
   -- Navigator
   {
-    'ahorine/navigator.lua',
-    branch = 'treesitter-fixes',
+    'ray-x/navigator.lua',
     dependencies = {
       {
         'ray-x/guihua.lua',
