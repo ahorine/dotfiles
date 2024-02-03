@@ -63,6 +63,12 @@ return {
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
   },
+  -- gotmpl grammer
+  {
+    'kmoschcau/tree-sitter-go-template',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = true,
+  },
   -- Navigator
   {
     'ray-x/navigator.lua',
