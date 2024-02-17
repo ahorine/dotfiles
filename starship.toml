@@ -1,3 +1,10 @@
+# Add a symbol if the shell is being recorded
+format = "${env_var.ASCIINEMA_REC}$all"
+
+[env_var.ASCIINEMA_REC]
+variable = "ASCIINEMA_REC"
+format = "[󰑊](red) "
+
 [aws]
 symbol = "  "
 

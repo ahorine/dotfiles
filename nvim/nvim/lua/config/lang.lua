@@ -154,6 +154,8 @@ require('lsp_signature').setup({
 require('go').setup({
   lsp_config = false,
   lsp_keymaps = false,
+  lsp_gofumpt = true,
+  max_line_len = 99,
   trouble = true,
   run_in_floaterm = true,
   floaterm = {

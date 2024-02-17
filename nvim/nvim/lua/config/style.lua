@@ -19,11 +19,26 @@ vim.diagnostic.config({
 vim.notify = require("notify")
 
 -- Lualine
-require('lualine').setup({
-  options = {
-    theme = 'tokyonight'
-  },
-})
+do
+  local ll = require('lualine')
+  local lazyStatus = require('lazy.status')
+  local cfg = ll.get_config()
+  local ll_y = cfg.sections.lualine_y
+  local lazyUpdates = {
+    lazyStatus.updates,
+    cond = lazyStatus.has_updates,
+    color = { fg = "#ff9e64" },
+  }
+  table.insert(ll_y, 1, lazyUpdates)
+  ll.setup({
+    options = {
+      theme = 'tokyonight'
+    },
+    sections = {
+      lualine_y = ll_y,
+    },
+  })
+end
 
 -- Bufferline
 require("bufferline").setup({
