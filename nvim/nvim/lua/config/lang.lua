@@ -30,12 +30,13 @@ require('codeium').setup({})
 local lint = require('lint')
 -- - Configure linters -- Mason to handle this
 lint.linters_by_ft = {
-  -- lua = { 'luacheck' },
-  -- python = { 'flake8' },
-  -- sh = { 'shellcheck' },
-  -- vim = { 'vint' },
-  -- zsh = { 'shellcheck' },
-  -- markdown = { 'markdownlint' },
+  lua = { 'luacheck' },
+  -- go = { 'nilaway', 'staticcheck' },
+  -- make = { 'checkmake' },
+  python = { 'flake8' },
+  sh = { 'shellcheck', },
+  zsh = { 'shellcheck', },
+  markdown = { 'markdownlint' },
 }
 -- - Create autocommand to lint on save
 vim.api.nvim_create_autocmd("CursorHold", {
@@ -198,4 +199,11 @@ vim.cmd("autocmd FileType guihua_rust lua require('cmp').setup.buffer { enabled 
 
 -- END CONFIG
 -- Mason lint
-require('mason-nvim-lint').setup()
+require('mason-nvim-lint').setup({
+  -- 'staticcheck',
+  -- 'nilaway',
+  -- 'checkmake',
+  -- 'shellharden',
+  -- 'luacheck',
+  -- 'shellcheck',
+})
