@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin
+export PATH=$HOME/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
