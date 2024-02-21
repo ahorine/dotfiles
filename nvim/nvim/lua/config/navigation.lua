@@ -1,10 +1,10 @@
 -- Telescope
-require('telescope').setup {
+require("telescope").setup({
   pickers = {
     live_grep = {
       additional_args = function()
         return { "--hidden" }
-      end
+      end,
     },
   },
   defaults = {
@@ -14,21 +14,22 @@ require('telescope').setup {
       ".git",
     },
   },
-}
+})
 
--- Leap
-require('leap').add_default_mappings()
+-- Leap + Spooky
+require("leap").add_default_mappings()
+require("leap-spooky").setup()
 
 -- Registers
-require('registers').setup({
+require("registers").setup({
   window = {
-    border = 'rounded',
+    border = "rounded",
   },
 })
 
 -- Marks
-require('marks').setup()
+require("marks").setup()
 
 -- Buffers
-require('buffer_manager').setup()
-vim.api.nvim_set_hl(0, 'BufferManagerModified', { fg = '#af0000' })
+require("buffer_manager").setup()
+vim.api.nvim_set_hl(0, "BufferManagerModified", { fg = "#af0000" })
