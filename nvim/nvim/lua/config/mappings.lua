@@ -94,9 +94,9 @@ wk.register({
   ["<leader>v"] = { "<cmd>lua Toggle_venn()<cr>", "Toggle Venn mode" },
 })
 -- Buffer manager
-wk.register({
-  ["<leader>b"] = { require("buffer_manager.ui").toggle_quick_menu, "Buffer manager" },
-})
+-- wk.register({
+--   ["<leader>b"] = { require("buffer_manager.ui").toggle_quick_menu, "Buffer manager" },
+-- })
 -- Trouble
 wk.register({
   t = {
