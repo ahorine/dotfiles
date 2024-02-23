@@ -1,15 +1,14 @@
-local undodir = vim.fn.stdpath('data') .. '/undo'
+local undodir = vim.fn.stdpath("data") .. "/undo"
 
 -- General options
-vim.opt.mouse = ''
-vim.opt.syntax = 'on'
+vim.opt.mouse = ""
+vim.opt.syntax = "on"
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.updatetime = 250
 vim.opt.hidden = true
 vim.opt.scrolloff = 5
--- vim.opt.sidescrolloff = 5
-vim.opt.backspace = 'indent,eol,start'
+vim.opt.backspace = "indent,eol,start"
 vim.opt.copyindent = true
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -24,12 +23,12 @@ vim.opt.undolevels = 1000
 vim.opt.undofile = true
 vim.opt.undodir = undodir
 vim.opt.wildmenu = true
-vim.opt.wildignore = '*.o,*~,*.pyc,*.swp,*.class,*.DS_Store,*.git,node_modules'
+vim.opt.wildignore = "*.o,*~,*.pyc,*.swp,*.class,*.DS_Store,*.git,node_modules"
 vim.opt.title = true
-vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.opt.foldlevelstart = 99
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 
 -- Global options
-vim.g.mapleader = ','
+vim.g.mapleader = ","

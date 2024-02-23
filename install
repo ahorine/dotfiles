@@ -75,6 +75,7 @@ You may need to install the following:
 - starship
 - zoxide
 - eza
+- ripgrep
 - tmux
 - neovim
 - fzf
