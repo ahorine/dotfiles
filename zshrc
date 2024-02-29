@@ -1,6 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin
 
+fpath=($HOME/.zsh_functions $fpath)
+
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
@@ -163,6 +165,9 @@ if [[ -d ~/.kube ]] && [[ -f ~/.kube/config_env ]]; then
   source ~/.kube/config_env
 fi
 
+# Load Completion functions
+autoload -Uz compinit
+compinit -u
 
 # load zoxide
 eval "$(zoxide init zsh --cmd cd)"

@@ -92,7 +92,7 @@ return {
   -- Marks
   {
     "chentoast/marks.nvim",
-    config = true,
+    opts = {},
     event = "VeryLazy",
   },
   -- Buffer Manager
@@ -116,12 +116,26 @@ return {
   {
     "kevinhwang91/nvim-bqf",
     event = "VeryLazy",
-    config = true,
+    opts = {},
   },
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {},
     lazy = false,
+    opts = {
+      keymaps = {
+        ["<C-h>"] = false,
+        ["<C-l>"] = false,
+        ["<leader>or"] = "actions.refresh",
+        ["<leader>os"] = "actions.select_split",
+      },
+    },
+    keys = {
+      {
+        "-",
+        "<CMD>Oil<CR>",
+        desc = "[Oil] Open parent directory",
+      },
+    },
   },
 }

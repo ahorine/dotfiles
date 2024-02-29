@@ -1,9 +1,9 @@
 -- Colorscheme config
-require("tokyonight").setup({
-  style = "night",
-  lualine_bold = true,
-})
-vim.cmd([[colorscheme tokyonight]])
+--require("tokyonight").setup({
+--  style = "night",
+--  lualine_bold = true,
+--})
+--vim.cmd([[colorscheme tokyonight]])
 
 -- Add borders
 local borderStyle = "rounded"
@@ -45,7 +45,8 @@ do
   table.insert(ll_x, 1, lint)
   ll.setup({
     options = {
-      theme = "tokyonight",
+      -- theme = "tokyonight",
+      theme = "auto",
     },
     sections = {
       lualine_x = ll_x,
@@ -83,20 +84,6 @@ require("nvim-treesitter.configs").setup({
 
 -- Winshift
 require("winshift").setup()
-
--- ZenMode
-require("zen-mode").setup({
-  window = {
-    width = 0.85,
-    height = 0.85,
-  },
-  plugins = {
-    alacritty = {
-      enabled = true,
-      font = "20",
-    },
-  },
-})
 
 -- Which Key
 require("which-key").setup()

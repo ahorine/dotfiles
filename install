@@ -11,7 +11,7 @@
 #set -x
 
 # Get the directory of this script
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # All dotfiles to install
 # Lines prefixed with '#' are ignored
@@ -23,10 +23,11 @@ nvim/vimrc ${HOME} .vimrc
 nvim/nvim ${HOME}/.config nvim
 zshrc ${HOME} .zshrc
 starship.toml ${HOME}/.config starship.toml
+
 # On Darwin, the alacritty config isn't read when in the config directory,
 # so we'll also symlink it to the home directory.
-alacritty.yml ${HOME}/.config/alacritty .alacritty.yml
-alacritty.yml ${HOME} .alacritty.yml
+alacritty.toml ${HOME}/.config alacritty.toml
+_alacritty ${HOME}/.zsh_functions _alacritty
 EOF
 
 printf "Installing dotfiles...\n"
@@ -37,30 +38,30 @@ while read -r line; do
   [[ "$line" =~ ^\ *# ]] || [[ -z "$line" ]] && continue
 
   # Split line into vars
-  read -r local_path target_path target_name <<< "$line"
+  read -r local_path target_path target_name <<<"$line"
 
   # If any of the paths are empty, skip this line
-  [[ -z "${local_path}" ]] || [[ -z "${target_path}" ]] || [[ -z "${target_name}" ]] && continue
+  [[ -z "$local_path" ]] || [[ -z "$target_path" ]] || [[ -z "$target_name" ]] && continue
 
   # Complete the local path and full target path
   local_path="${DIR}/${local_path}"
 
   # Dump status
-  printf "Installing %s to %s/%s\n" "${local_path}" "${target_path}" "${target_name}"
+  printf "Installing %s to %s/%s\n" "$local_path" "$target_path" "$target_name"
 
   # Create target directory if it doesn't exist
-  mkdir -p "${target_path}"
+  mkdir -p "$target_path"
 
   # If the target exists and is not a symlink, back it up
   if [[ -e "${target_path}/${target_name}" && ! -L "${target_path}/${target_name}" ]]; then
     backup_name="${target_name}.$(date +%Y%m%d%H%M%S)"
-    printf "Backing up %s/%s to %s/%s\n" "${target_path}" "${target_name}" "${target_path}" "${backup_name}"
+    printf "Backing up %s/%s to %s/%s\n" "$target_path" "$target_name" "$target_path" "$backup_name"
     mv "${target_path}/${target_name}" "${target_path}/${backup_name}"
   fi
 
   # Create symlink to local file
-  ln -sf "${local_path}" "${target_path}/${target_name}"
-done <<< "$DOTS"
+  ln -sf "$local_path" "${target_path}/${target_name}"
+done <<<"$DOTS"
 
 # Dump advice to install other needed items
 cat <<EOF
