@@ -1,3 +1,6 @@
+[env]
+TERM = "alacritty-direct"
+
 [window]
 decorations = "Buttonless"
 startup_mode = "Maximized"

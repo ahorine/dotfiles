@@ -10,8 +10,6 @@ fpath=($HOME/.zsh_functions $fpath)
 #source "$HOME/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
 set -o vi
 export EDITOR=nvim
-export TERM="xterm-256color"
-#export TERM="alacritty"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

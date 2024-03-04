@@ -428,7 +428,8 @@ bind -T copy-mode-vi v if-shell -F '#{selection_present}' \
                                    'send -X clear-selection' \
                                    'send -X begin-selection' \
 
-set -g default-terminal "alacritty"
+set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",*:RGB"
 
 # -- custom variables ----------------------------------------------------------
 
