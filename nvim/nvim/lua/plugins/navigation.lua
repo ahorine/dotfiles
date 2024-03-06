@@ -123,6 +123,12 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     opts = {
+      columns = {
+        "icon",
+        "permissions",
+        "size",
+        "mtime",
+      },
       keymaps = {
         ["<C-h>"] = false,
         ["<C-l>"] = false,
