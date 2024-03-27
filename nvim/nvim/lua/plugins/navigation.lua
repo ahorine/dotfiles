@@ -8,6 +8,8 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
       "BurntSushi/ripgrep",
+      "rcarriga/nvim-notify",
+      "folke/which-key.nvim",
     },
     opts = {
       pickers = {
@@ -25,11 +27,19 @@ return {
         },
       },
     },
+    keys = {
+      { "<leader>f", desc = "+Telescope" },
+      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
+      { "<leader>fa", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find File (+hidden)" },
+      { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffer" },
+      { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
+      { "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Notifications" },
+    },
   },
   -- Flash
   {
     "folke/flash.nvim",
-    event = "VeryLazy",
     keys = {
       {
         "s",
@@ -77,7 +87,6 @@ return {
   {
     "tversteeg/registers.nvim",
     name = "registers",
-    lazy = true,
     opts = {
       window = {
         border = "rounded",
@@ -92,13 +101,12 @@ return {
   -- Marks
   {
     "chentoast/marks.nvim",
-    opts = {},
+    config = true,
     event = "VeryLazy",
   },
   -- Buffer Manager
   {
     "j-morano/buffer_manager.nvim",
-    lazy = true,
     config = function()
       vim.api.nvim_set_hl(0, "BufferManagerModified", { fg = "#af0000" })
     end,
@@ -116,7 +124,7 @@ return {
   {
     "kevinhwang91/nvim-bqf",
     event = "VeryLazy",
-    opts = {},
+    config = true,
   },
   {
     "stevearc/oil.nvim",

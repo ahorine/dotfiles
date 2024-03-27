@@ -1,11 +1,18 @@
 -- Organization/Productivity
 return {
+  -- luarocks (for neorg)
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+  },
   -- Neorg
   {
     "nvim-neorg/neorg",
     ft = "norg",
-    build = ":Neorg sync-parsers",
+    --build = ":Neorg sync-parsers",
     dependencies = {
+      "vhyrro/luarocks.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "nvim-treesitter/nvim-treesitter-textobjects",

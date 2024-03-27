@@ -25,9 +25,6 @@ require("lazy").setup("plugins", {
   },
 })
 -- Postconfig
-require("config.mappings")
 require("config.style")
-require("config.vcs")
 require("config.lang")
 require("config.editing")
-require("config.debug")

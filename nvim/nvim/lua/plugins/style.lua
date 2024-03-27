@@ -22,12 +22,15 @@ return {
     lazy = false,
     dependencies = {
       "nvim-tree/nvim-web-devicons",
-      lazy = true,
     },
   },
   -- - notify
   {
     "rcarriga/nvim-notify",
+    lazy = false,
+    config = function()
+      vim.notify = require("notify")
+    end,
   },
   -- - bufferline
   {
@@ -36,15 +39,42 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
+    event = "VeryLazy",
+    opts = {
+      options = {
+        indicator = {
+          style = "icon",
+        },
+        separator_style = "slant",
+        diagnostics = "nvim_lsp",
+      },
+      highlights = {
+        buffer_selected = {
+          bold = true,
+          italic = true,
+        },
+      },
+    },
   },
   -- - Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdateSync",
+    event = "BufReadPre",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "python", "go", "bash" },
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = true,
+        },
+      })
+    end,
   },
   -- - Traces
   {
     "markonm/traces.vim",
+    event = "CmdlineEnter",
   },
   -- - Trouble
   {
@@ -52,10 +82,22 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
+    config = true,
+    keys = {
+      { "<leader>t", desc = "+Trouble" },
+      { "<leader>tt", "<cmd>TroubleToggle<cr>", desc = "Toggle Trouble" },
+      { "<leader>to", "<cmd>Trouble<cr>", desc = "Open Trouble" },
+      { "<leader>tc", "<cmd>TroubleClose<cr>", desc = "Close Trouble" },
+      { "<leader>tr", "<cmd>TroubleRefresh<cr>", desc = "Refresh Trouble" },
+    },
   },
   -- - Winshift
   {
     "sindrets/winshift.nvim",
+    --config = true,
+    keys = {
+      { "<C-w><C-m>", "<cmd>WinShift<cr>", desc = "WinShift" },
+    },
   },
   -- - ZenMode
   {
@@ -77,9 +119,5 @@ return {
   -- - numbertoggle
   {
     "sitiom/nvim-numbertoggle",
-  },
-  -- - Which-Key
-  {
-    "folke/which-key.nvim",
   },
 }

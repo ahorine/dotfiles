@@ -1,28 +1,13 @@
 -- Mason - KEEP AT TOP
-require("mason").setup()
-require("mason-lspconfig").setup({})
-require("mason-tool-installer").setup({
-  ensure_installed = {
-    "luacheck",
-    "nilaway",
-    "staticcheck",
-    "checkmake",
-    "flake8",
-    "shellcheck",
-    "markdownlint",
-    "bash-language-server",
-    "bash-debug-adapter",
-    "beautysh",
-    "shellharden",
-    "jq",
-  },
-})
+--require("mason").setup()
+--require("mason-lspconfig").setup({})
+--require("mason-tool-installer").setup()
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 -- Codeium
-require("codeium").setup({})
+-- require("codeium").setup({})
 
 -- Linting
 local lint = require("lint")
@@ -174,17 +159,9 @@ require("luasnip.loaders.from_vscode").lazy_load({
 })
 
 -- LSP
-require("lspconfig.ui.windows").default_options = {
-  border = "rounded",
-}
 
 -- LSP Signature
-require("lsp_signature").setup({
-  bind = true,
-  handler_opts = {
-    border = "rounded",
-  },
-})
+-- require("lsp_signature").setup()
 
 -- Golang
 -- - Load
@@ -192,7 +169,6 @@ require("go").setup({
   lsp_config = false,
   lsp_keymaps = false,
   lsp_gofumpt = true,
-  max_line_len = 99,
   trouble = true,
   run_in_floaterm = true,
   floaterm = {
