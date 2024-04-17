@@ -16,8 +16,9 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "nvim-cmp",
+      "hrsh7th/nvim-cmp",
       "folke/zen-mode.nvim",
+      -- "jmbuhr/otter.nvim",
     },
     cmd = "Neorg",
     config = function()
@@ -55,6 +56,7 @@ return {
             },
           },
           ["core.integrations.nvim-cmp"] = {},
+          -- ["core.integrations.otter"] = {}, -- Doesn't appear to be fully functional yet.
           ["core.keybinds"] = {
             config = {
               default_keybinds = true,

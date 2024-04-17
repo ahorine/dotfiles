@@ -1,13 +1,5 @@
--- Mason - KEEP AT TOP
---require("mason").setup()
---require("mason-lspconfig").setup({})
---require("mason-tool-installer").setup()
-
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-
--- Codeium
--- require("codeium").setup({})
 
 -- Linting
 local lint = require("lint")
@@ -20,6 +12,7 @@ lint.linters_by_ft = {
   sh = { "shellcheck" },
   zsh = { "shellcheck" },
   markdown = { "markdownlint" },
+  yaml = { "yamllint" },
 }
 -- - Create autocommand to lint on CursorHold
 autocmd("CursorHold", {
@@ -45,6 +38,8 @@ local ft_formatters = {
       args = { "--replace" },
     },
   },
+  markdown = { require("formatter.filetypes.markdown").denofmt },
+  yaml = { require("formatter.filetypes.yaml").yamlfmt },
   zsh = { require("formatter.filetypes.zsh").beautysh },
   ["*"] = { require("formatter.filetypes.any").remove_trailing_whitespace },
 }
@@ -110,6 +105,7 @@ cmp.setup({
     { name = "luasnip", keyword_length = 2 },
     { name = "neorg", keyword_length = 2 },
     { name = "codeium", keyword_length = 1 },
+    -- { name = "otter", keyword_length = 2 },
   },
   {
     { name = "buffer", keyword_length = 2 },
@@ -160,9 +156,6 @@ require("luasnip.loaders.from_vscode").lazy_load({
 
 -- LSP
 
--- LSP Signature
--- require("lsp_signature").setup()
-
 -- Golang
 -- - Load
 require("go").setup({
@@ -187,24 +180,26 @@ autocmd("BufWritePre", {
 })
 
 -- Navigator
-require("navigator").setup({
-  mason = true,
-  border = "single",
-  -- TODO: Update all the icons to use good ones instead of emojis
-  keymaps = {
-    { key = "<space>k", func = vim.lsp.buf.signature_help, desc = "signature_help" },
-  },
-  -- TODO: Hook on_attach and update descriptions via which-key for all the mappings
-  -- on_attach = function(client, bufnr)
-  -- end,
-  lsp = {
-    gopls = function()
-      local cfg = require("go.lsp").config()
-      return cfg
-    end,
-    format_on_save = false, -- Handled by __formatter__ autocmd
-  },
-})
+--require("navigator").setup({
+--  mason = true,
+--  border = "single",
+--  -- TODO: Update all the icons to use good ones instead of emojis
+--  keymaps = {
+--    { key = "<space>k", func = vim.lsp.buf.signature_help, desc = "signature_help" },
+--  },
+--  -- TODO: Hook on_attach and update descriptions via which-key for all the mappings
+--  -- on_attach = function(client, bufnr)
+--  -- end,
+--  lsp = {
+--    gopls = function()
+--      local cfg = require("go.lsp").config()
+--      return cfg
+--    end,
+--    -- Register additional servers
+--    servers = { "marksman" },
+--    format_on_save = false, -- Handled by __formatter__ autocmd
+--  },
+--})
 -- TODO: Switch to autocmd
 vim.cmd("autocmd FileType guihua lua require('cmp').setup.buffer { enabled = false }")
 vim.cmd("autocmd FileType guihua_rust lua require('cmp').setup.buffer { enabled = false }")

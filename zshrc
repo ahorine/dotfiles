@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin
+export PATH=$HOME/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin/:$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin
 
 fpath=($HOME/.zsh_functions $fpath)
 

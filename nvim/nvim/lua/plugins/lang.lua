@@ -35,6 +35,11 @@ return {
         "beautysh",
         "shellharden",
         "jq",
+        "yaml-language-server",
+        "yamlfix",
+        "yamlfmt",
+        "yamllint",
+        "helm-ls",
       },
     },
   },
@@ -61,6 +66,35 @@ return {
       bind = true,
       handler_opts = {
         border = "rounded",
+      },
+    },
+  },
+  -- LSP Code Action Preview
+  {
+    "aznhe21/actions-preview.nvim",
+    opts = {
+      telescope = {
+        sorting_strategy = "ascending",
+        layout_strategy = "vertical",
+        layout_config = {
+          width = 0.8,
+          height = 0.9,
+          prompt_position = "top",
+          preview_cutoff = 20,
+          preview_height = function(_, _, max_lines)
+            return max_lines - 15
+          end,
+        },
+      },
+    },
+    keys = {
+      {
+        "<space>cp",
+        function()
+          require("actions-preview").code_actions()
+        end,
+        mode = { "n", "v" },
+        desc = "Preview Code Actions",
       },
     },
   },
@@ -122,6 +156,49 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "ray-x/lsp_signature.nvim",
     },
+    event = "VeryLazy",
+    opts = {
+      mason = true,
+      border = "single",
+      icons = {
+        code_action_icon = "",
+        code_lens_action_icon = "",
+        diagnostic_head = "",
+        diagnostic_err = "",
+        diagnostic_warn = "",
+        diagnostic_info = [[]],
+        diagnostic_hint = [[]],
+        diagnostic_head_severity_3 = "",
+        diagnostic_head_description = "",
+        diagnostic_virtual_text = "󰙩",
+        diagnostic_file = "",
+        value_definition = "󰎔󱇧",
+        value_changed = "󱇧",
+        match_kinds = {
+          associated = "",
+          namespace = "",
+          field = "",
+          module = "",
+          flag = "",
+        },
+        treesitter_defult = "",
+      },
+      keymaps = {
+        { key = "<space>k", func = vim.lsp.buf.signature_help, desc = "signature_help" },
+      },
+      -- TODO: Hook on_attach and update descriptions via which-key for all the mappings
+      -- on_attach = function(client, bufnr)
+      -- end,
+      lsp = {
+        gopls = function()
+          local cfg = require("go.lsp").config()
+          return cfg
+        end,
+        -- Register additional servers
+        servers = { "marksman" },
+        format_on_save = false, -- Handled by __formatter__ autocmd
+      },
+    },
   },
   -- LuaSnips
   {
@@ -139,6 +216,17 @@ return {
       "nvim-telescope/telescope.nvim",
     },
   },
+  -- Otter
+  {
+    "jmbuhr/otter.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    enabled = false,
+    lazy = true,
+    config = true,
+  },
   -- cmp
   {
     "hrsh7th/nvim-cmp",
@@ -150,6 +238,7 @@ return {
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
+      -- "jmbuhr/otter.nvim",
     },
   },
   -- Markdown Previewing
