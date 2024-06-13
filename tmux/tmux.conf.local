@@ -416,6 +416,8 @@ set -g @bw-copy-to-clipboard 'on'
 set-option -g @tmux-network-bandwidth-padding 5
 
 # -- Custom bindings -----------------------------------------------------------
+bind -r M-h swap-window -t -1\; select-window -t -1
+bind -r M-l swap-window -t +1\; select-window -t +1
 bind t "choose-tree -Z"
 bind q "killw"
 # Copy-mode

@@ -83,6 +83,13 @@ return {
       },
     },
   },
+  -- Precognition
+  {
+    "tris203/precognition.nvim",
+    enabled = false,
+    config = true,
+    event = "BufReadPre",
+  },
   -- Registers
   {
     "tversteeg/registers.nvim",

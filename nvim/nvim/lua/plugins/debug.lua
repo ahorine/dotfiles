@@ -8,28 +8,28 @@ return {
     config = function()
       local dap = require("dap")
       -- Bash
-      dap.adapters.bashdb = {
+      dap.adapters.sh = {
         type = "executable",
         command = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/bash-debug-adapter",
       }
 
       dap.configurations.sh = {
         {
-          type = "bashdb",
-          request = "launch",
           name = "Launch Bash debugger",
+          type = "sh",
+          request = "launch",
           pathBashdb = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb",
           pathBashdbLib = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/extension/bashdb_dir",
           program = "${file}",
           cwd = "${fileDirname}",
-          pathCat = "cat",
-          pathBash = "bash",
+          pathCat = "/bin/cat",
+          pathBash = "/opt/homebrew/bin/bash",
           pathMkfifo = "mkfifo",
-          pathPkill = "pkill",
+          pathPkill = "/usr/bin/pkill",
           args = {},
           env = {},
-          terminalKind = "integrated",
-          repl_lang = "bash",
+          --terminalKind = "integrated",
+          --repl_lang = "bash",
           -- showDebugOutput = true,
           -- trace = true,
         },

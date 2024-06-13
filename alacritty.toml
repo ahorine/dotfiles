@@ -4,6 +4,7 @@ TERM = "alacritty-direct"
 [window]
 decorations = "Buttonless"
 startup_mode = "Maximized"
+option_as_alt = "OnlyLeft"
 
 [font]
 normal.family = "SauceCodePro Nerd Font Mono"

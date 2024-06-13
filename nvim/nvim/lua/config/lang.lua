@@ -9,7 +9,7 @@ lint.linters_by_ft = {
   go = { "staticcheck" },
   make = { "checkmake" },
   python = { "flake8" },
-  sh = { "shellcheck" },
+  -- sh = { "shellcheck" },
   zsh = { "shellcheck" },
   markdown = { "markdownlint" },
   yaml = { "yamllint" },
@@ -163,10 +163,10 @@ require("go").setup({
   lsp_keymaps = false,
   lsp_gofumpt = true,
   trouble = true,
-  run_in_floaterm = true,
-  floaterm = {
-    title_colors = "tokyo",
-  },
+  -- run_in_floaterm = true,
+  -- floaterm = {
+  --   title_colors = "tokyo",
+  -- },
   luasnip = true,
 })
 -- - Format on save

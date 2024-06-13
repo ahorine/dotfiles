@@ -8,6 +8,7 @@ fpath=($HOME/.zsh_functions $fpath)
 
 #source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 #source "$HOME/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
+setopt ignore_eof
 set -o vi
 export EDITOR=nvim
 
