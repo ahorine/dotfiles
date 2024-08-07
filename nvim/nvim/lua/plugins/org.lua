@@ -22,6 +22,10 @@ return {
     },
     cmd = "Neorg",
     config = function()
+      -- Keymap overrides
+      vim.keymap.set("i", "<leader><CR>", "<Plug>(neorg.itero.next-iteration)", {})
+
+      -- setup
       require("neorg").setup({
         load = {
           ["core.defaults"] = {},
@@ -60,10 +64,6 @@ return {
           ["core.keybinds"] = {
             config = {
               default_keybinds = true,
-              hook = function(keybinds)
-                -- "<M-CR>", "core.itero.next-iteration", "<CR>", opts = { desc = "[neorg] Continue Object" }
-                keybinds.remap_key("norg", "i", "<M-CR>", "<leader><CR>")
-              end,
             },
           },
           ["core.presenter"] = {
@@ -80,5 +80,17 @@ return {
   -- Venn
   {
     "jbyuki/venn.nvim",
+  },
+  -- CodeSnap (sharing)
+  {
+    "mistricky/codesnap.nvim",
+    build = "make",
+    cmd = "CodeSnap",
+    opts = {
+      code_font_family = "",
+      mac_window_bar = false,
+      bg_padding = 0,
+      watermark = "SauceCodePro Nerd Font Mono",
+    },
   },
 }

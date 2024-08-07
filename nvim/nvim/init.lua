@@ -27,4 +27,3 @@ require("lazy").setup("plugins", {
 -- Postconfig
 require("config.style")
 require("config.lang")
-require("config.editing")

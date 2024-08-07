@@ -8,8 +8,10 @@ return {
         local gs = require("gitsigns")
         local wk = require("which-key")
         -- Normal
-        wk.register({
-          ["]c"] = {
+        wk.add({
+          buffer = bufnr,
+          {
+            "]c",
             function()
               if vim.wo.diff then
                 vim.cmd.normal({ "]c", bang = true })
@@ -17,9 +19,10 @@ return {
                 gs.nav_hunk("next")
               end
             end,
-            "Next Hunk",
+            desc = "Next Hunk",
           },
-          ["[c"] = {
+          {
+            "[c",
             function()
               if vim.wo.diff then
                 vim.cmd.normal({ "[c", bang = true })
@@ -27,57 +30,62 @@ return {
                 gs.nav_hunk("prev")
               end
             end,
-            "Prev Hunk",
+            desc = "Prev Hunk",
           },
-          ["<leader>"] = {
-            h = {
-              name = "+Gitsigns",
-              s = { gs.stage_hunk, "Stage Hunk" },
-              r = { gs.reset_hunk, "Reset Hunk" },
-              S = { gs.stage_buffer, "Stage Buffer" },
-              u = { gs.undo_stage_hunk, "Undo Stage Hunk" },
-              R = { gs.reset_buffer, "Reset Buffer" },
-              p = { gs.preview_hunk, "Preview Hunk" },
-              b = {
-                function()
-                  gs.blame_line({ full = true })
-                end,
-                "Blame Line",
-              },
-              D = {
-                function()
-                  gs.diffthis("~")
-                end,
-                "Diff This",
-              },
-              t = {
-                name = "+Toggles",
-                b = { gs.toggle_current_line_blame, "Toggle Line Blame" },
-                d = { gs.toggle_deleted, "Toggle Deleted" },
-              },
+          {
+            "<leader>h",
+            group = "+Gitsigns",
+            { "<leader>hs", gs.stage_hunk, desc = "Stage Hunk" },
+            { "<leader>hr", gs.reset_hunk, desc = "Reset Hunk" },
+            { "<leader>hS", gs.stage_buffer, desc = "Stage Buffer" },
+            { "<leader>hu", gs.undo_stage_hunk, desc = "Undo Stage Hunk" },
+            { "<leader>hR", gs.reset_buffer, desc = "Reset Buffer" },
+            { "<leader>hp", gs.preview_hunk, desc = "Preview Hunk" },
+            {
+              "<leader>hb",
+              function()
+                gs.blame_line({ full = true })
+              end,
+              desc = "Blame Line",
+            },
+            {
+              "<leader>hD",
+              function()
+                gs.diffthis("~")
+              end,
+              desc = "Diff This",
+            },
+            {
+              "<leader>ht",
+              group = "+Toggles",
+              { "<leader>htb", gs.toggle_current_line_blame, desc = "Toggle Line Blame" },
+              { "<leader>htd", gs.toggle_deleted, desc = "Toggle Deleted" },
             },
           },
-        }, { buffer = bufnr })
+        })
         -- Visual
-        wk.register({
-          ["<leader>"] = {
-            h = {
-              name = "+Gitsigns",
-              s = {
-                function()
-                  gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-                end,
-                "Stage Hunk",
-              },
-              r = {
-                function()
-                  gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-                end,
-                "Reset Hunk",
-              },
+        wk.add({
+          {
+            "<leader>h",
+            group = "+Gitsigns",
+            buffer = bufnr,
+            mode = "v",
+            {
+              "<leader>hs",
+              function()
+                gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+              end,
+              desc = "Stage Hunk",
+            },
+            {
+              "<leader>hr",
+              function()
+                gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+              end,
+              desc = "Reset Hunk",
             },
           },
-        }, { buffer = bufnr, mode = "v" })
+        })
       end,
     },
   },

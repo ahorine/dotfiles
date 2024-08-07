@@ -39,6 +39,7 @@ local ft_formatters = {
     },
   },
   markdown = { require("formatter.filetypes.markdown").denofmt },
+  proto = { require("formatter.filetypes.proto").buf_format },
   yaml = { require("formatter.filetypes.yaml").yamlfmt },
   zsh = { require("formatter.filetypes.zsh").beautysh },
   ["*"] = { require("formatter.filetypes.any").remove_trailing_whitespace },
@@ -60,7 +61,7 @@ autocmd("BufWritePost", {
       vim.cmd("FormatWriteLock")
     else
       -- Run the LSP formatter (if an LS is running)
-      if #vim.lsp.buf_get_clients() ~= 0 then
+      if vim.lsp.get_clients() ~= 0 then
         vim.lsp.buf.format()
       end
     end

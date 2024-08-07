@@ -14,26 +14,23 @@ return {
       map("n", "<C-k>", "<C-w>k", { noremap = true })
       map("n", "<C-l>", "<C-w>l", { noremap = true })
       -- Clear search highlights
-      wk.register({
-        ["<space><space>"] = { ":nohlsearch<CR>", "Clear highlights" },
+      wk.add({
+        { "<space><space>", ":nohlsearch<CR>", desc = "Clear highlights" },
       })
       -- OS clipboard macros
       -- Normal
-      wk.register({
-        y = { '"+y', "Yank to OS clipboard" },
-        yy = { '"+yy', "Yank line to OS clipboard" },
-        Y = { '"+yg_', "Yank to end of line to OS clipboard" },
-        p = { '"+p', "Paste from OS clipboard" },
-        P = { '"+P', "Paste from OS clipboard behind cursor" },
-      }, { prefix = "<leader>" })
+      wk.add({
+        { "<leader>y", '"+y', desc = "Yank to OS clipboard" },
+        { "<leader>yy", '"+yy', desc = "Yank line to OS clipboard" },
+        { "<leader>Y", '"+yg_', desc = "Yank to end of line to OS clipboard" },
+        { "<leader>p", '"+p', desc = "Paste from OS clipboard" },
+        { "<leader>P", '"+P', desc = "Paste from OS clipboard behind cursor" },
+      })
       -- Visual
-      wk.register({
-        y = { '"+y', "Yank selection to OS clipboard" },
-        p = { '"+p', "Paste to selection from OS clipboard" },
-        P = { '"+P', "Paste to selection from OS clipboard" }, -- ??
-      }, {
-        mode = "v",
-        prefix = "<leader>",
+      wk.add({
+        { "<leader>y", '"+y', mode = "v", desc = "Yank selection to OS clipboard" },
+        { "<leader>p", '"+p', mode = "v", desc = "Paste to selection from OS clipboard" },
+        { "<leader>P", '"+P', mode = "v", desc = "Paste to selection from OS clipboard" }, -- ??
       })
 
       -- Plugins
@@ -56,24 +53,24 @@ return {
       map("i", "<C-L>", "<cmd>lua require('luasnip').jump(1)<cr>", { silent = true })
       map("i", "<C-H>", "<cmd>lua require('luasnip').jump(-1)<cr>", { silent = true })
       -- - Scissors
-      wk.register({
-        s = {
-          name = "Scissors",
-          e = {
-            function()
-              require("scissors").editSnippet()
-            end,
-            "Edit snippet",
-          },
-          a = {
-            function()
-              require("scissors").addNewSnippet()
-            end,
-            "Add snippet",
-            mode = { "n", "x" },
-          },
+      wk.add({
+        { "<leader>s", group = "Scissors" },
+        {
+          "<leader>se",
+          function()
+            require("scissors").editSnippet()
+          end,
+          desc = "Edit snippet",
         },
-      }, { prefix = "<leader>" })
+        {
+          "<leader>sa",
+          function()
+            require("scissors").addNewSnippet()
+          end,
+          desc = "Add snippet",
+          mode = { "n", "x" },
+        },
+      })
       -- - Venn
       function _G.Toggle_venn()
         local venn_enabled = vim.inspect(vim.b.venn_enabled)
@@ -95,8 +92,8 @@ return {
       end
 
       -- toggle keymappings for venn using <leader>v
-      wk.register({
-        ["<leader>v"] = { "<cmd>lua Toggle_venn()<cr>", "Toggle Venn mode" },
+      wk.add({
+        { "<leader>v", "<cmd>lua Toggle_venn()<cr>", desc = "Toggle Venn mode" },
       })
       -- Buffer manager
       -- wk.register({

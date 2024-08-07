@@ -32,6 +32,7 @@ vim.opt.timeoutlen = 300
 
 -- Global options
 vim.g.mapleader = ","
+vim.g.maplocalleader = "\\"
 
 -- Add borders
 local borderStyle = "rounded"

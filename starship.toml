@@ -62,6 +62,12 @@ symbol = " "
 [julia]
 symbol = " "
 
+[kubernetes]
+disabled = false
+contexts = [
+  { context_pattern = "swwf-il-k53-s", context_alias = "k53" },
+]
+
 [lua]
 symbol = " "
 
