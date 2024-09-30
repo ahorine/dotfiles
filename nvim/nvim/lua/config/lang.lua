@@ -68,9 +68,6 @@ autocmd("BufWritePost", {
   end,
 })
 
--- Todo Comments
-require("todo-comments").setup()
-
 -- Scissors
 local snipDir = vim.fn.stdpath("config") .. "/snippets"
 require("scissors").setup({
@@ -180,27 +177,6 @@ autocmd("BufWritePre", {
   group = format_sync_grp,
 })
 
--- Navigator
---require("navigator").setup({
---  mason = true,
---  border = "single",
---  -- TODO: Update all the icons to use good ones instead of emojis
---  keymaps = {
---    { key = "<space>k", func = vim.lsp.buf.signature_help, desc = "signature_help" },
---  },
---  -- TODO: Hook on_attach and update descriptions via which-key for all the mappings
---  -- on_attach = function(client, bufnr)
---  -- end,
---  lsp = {
---    gopls = function()
---      local cfg = require("go.lsp").config()
---      return cfg
---    end,
---    -- Register additional servers
---    servers = { "marksman" },
---    format_on_save = false, -- Handled by __formatter__ autocmd
---  },
---})
 -- TODO: Switch to autocmd
 vim.cmd("autocmd FileType guihua lua require('cmp').setup.buffer { enabled = false }")
 vim.cmd("autocmd FileType guihua_rust lua require('cmp').setup.buffer { enabled = false }")

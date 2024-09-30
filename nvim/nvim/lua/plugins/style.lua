@@ -104,13 +104,13 @@ return {
     "folke/zen-mode.nvim",
     opts = {
       window = {
-        width = 0.5,
-        height = 0.85,
+        width = 0.9,
+        height = 0.9,
       },
       plugins = {
         alacritty = {
           enabled = true,
-          font = "30",
+          font = "20",
         },
       },
     },

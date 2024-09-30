@@ -84,13 +84,13 @@ return {
   -- CodeSnap (sharing)
   {
     "mistricky/codesnap.nvim",
-    build = "make",
+    build = "make build_generator",
     cmd = "CodeSnap",
     opts = {
-      code_font_family = "",
+      code_font_family = "SauceCodePro Nerd Font Mono",
       mac_window_bar = false,
       bg_padding = 0,
-      watermark = "SauceCodePro Nerd Font Mono",
+      watermark = "",
     },
   },
 }

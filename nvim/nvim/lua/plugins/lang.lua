@@ -112,6 +112,8 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    config = true,
+    event = "VeryLazy",
   },
   -- Codeium
   {
@@ -195,7 +197,7 @@ return {
           return cfg
         end,
         -- Register additional servers
-        servers = { "marksman" },
+        servers = { "marksman", "helm_ls" },
         format_on_save = false, -- Handled by __formatter__ autocmd
       },
     },
