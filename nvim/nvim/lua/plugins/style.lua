@@ -17,12 +17,55 @@ return {
   },
   -- UI
   -- - Lualine
+  -- Better strategy for config:
+  -- https://github.com/folke/trouble.nvim?tab=readme-ov-file#statusline-component
   {
     "nvim-lualine/lualine.nvim",
     lazy = false,
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
+    config = function()
+      local ll = require("lualine")
+      local lazyStatus = require("lazy.status")
+      local cfg = ll.get_config()
+      local ll_y = cfg.sections.lualine_y
+      local ll_x = cfg.sections.lualine_x
+      local lazyUpdates = {
+        lazyStatus.updates,
+        cond = lazyStatus.has_updates,
+        color = { fg = "#ff9e64" },
+      }
+      table.insert(ll_y, 1, lazyUpdates)
+      local lint_progress = function()
+        local linters = require("lint").get_running()
+        if #linters == 0 then
+          return "󰦕"
+        end
+        return "󱉶 " .. table.concat(linters, ", ")
+      end
+      local lint_color = function()
+        local linters = require("lint").get_running()
+        if #linters == 0 then
+          return { fg = "#3ad11f" }
+        end
+        return { fg = "#ff9e64" }
+      end
+      local lint = {
+        lint_progress,
+        color = lint_color,
+      }
+      table.insert(ll_x, 1, lint)
+      ll.setup({
+        options = {
+          theme = "auto",
+        },
+        sections = {
+          lualine_x = ll_x,
+          lualine_y = ll_y,
+        },
+      })
+    end,
   },
   -- - notify
   {
@@ -39,7 +82,7 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    event = "VeryLazy",
+    lazy = false,
     opts = {
       options = {
         indicator = {
@@ -82,19 +125,45 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    config = true,
+    opts = {},
+    cmd = { "Trouble" },
     keys = {
-      { "<leader>t", desc = "+Trouble" },
-      { "<leader>tt", "<cmd>TroubleToggle<cr>", desc = "Toggle Trouble" },
-      { "<leader>to", "<cmd>Trouble<cr>", desc = "Open Trouble" },
-      { "<leader>tc", "<cmd>TroubleClose<cr>", desc = "Close Trouble" },
-      { "<leader>tr", "<cmd>TroubleRefresh<cr>", desc = "Refresh Trouble" },
+      { "<leader>t", "", desc = "+Trouble" },
+      {
+        "<leader>td",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>tD",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>ts",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>tl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>tL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>tQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
     },
   },
   -- - Winshift
   {
     "sindrets/winshift.nvim",
-    --config = true,
     keys = {
       { "<C-w><C-m>", "<cmd>WinShift<cr>", desc = "WinShift" },
     },

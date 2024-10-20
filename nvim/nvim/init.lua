@@ -24,6 +24,3 @@ require("lazy").setup("plugins", {
     enabled = true,
   },
 })
--- Postconfig
-require("config.style")
-require("config.lang")

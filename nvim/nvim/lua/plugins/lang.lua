@@ -1,16 +1,43 @@
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+local snipDir = vim.fn.stdpath("config") .. "/snippets"
+
+-- Auto Commands
+-- - Format on save
+local format_sync_grp = augroup("GoFormat", {})
+autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    require("go.format").goimport()
+  end,
+  group = format_sync_grp,
+})
+autocmd("FileType", {
+  pattern = "guihua",
+  callback = function()
+    require("cmp").setup.buffer({ enabled = false })
+  end,
+})
+autocmd("FileType", {
+  pattern = "guihua_rust",
+  callback = function()
+    require("cmp").setup.buffer({ enabled = false })
+  end,
+})
+
 -- Language Plugins
 return {
   -- Mason
   {
     "williamboman/mason.nvim",
-    config = true,
+    opts = {},
     event = "VeryLazy",
   },
   -- Mason LSP Config
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    config = true,
+    opts = {},
     event = "VeryLazy",
   },
   -- Mason Tool Installer
@@ -102,28 +129,129 @@ return {
   {
     "mfussenegger/nvim-lint",
     event = "VeryLazy",
+    config = function()
+      local lint = require("lint")
+      -- - Configure linters
+      lint.linters_by_ft = {
+        lua = { "luacheck" },
+        go = { "staticcheck" },
+        make = { "checkmake" },
+        python = { "flake8" },
+        -- sh = { "shellcheck" },
+        zsh = { "shellcheck" },
+        markdown = { "markdownlint" },
+        yaml = { "yamllint" },
+      }
+      -- - Create autocommand to lint on CursorHold
+      autocmd("CursorHold", {
+        callback = function()
+          lint.try_lint()
+        end,
+      })
+      -- Add '-x' to shellcheck
+      lint.linters.shellcheck.args = {
+        "-x",
+        "--format",
+        "json",
+        "-",
+      }
+    end,
   },
   -- Formatter
   {
     "mhartington/formatter.nvim",
     event = "VeryLazy",
+    config = function()
+      local ft_formatters = {
+        lua = { require("formatter.filetypes.lua").stylua },
+        sh = {
+          require("formatter.filetypes.sh").shfmt,
+          {
+            exe = "shellharden",
+            args = { "--replace" },
+          },
+        },
+        markdown = { require("formatter.filetypes.markdown").denofmt },
+        proto = { require("formatter.filetypes.proto").buf_format },
+        yaml = { require("formatter.filetypes.yaml").yamlfmt },
+        zsh = { require("formatter.filetypes.zsh").beautysh },
+        ["*"] = { require("formatter.filetypes.any").remove_trailing_whitespace },
+      }
+      require("formatter").setup({
+        filetype = ft_formatters,
+      })
+      local afg = augroup("__formatter__", { clear = false })
+      autocmd("BufWritePost", {
+        group = afg,
+        callback = function()
+          local ft = vim.bo.filetype
+          -- If it's a go file, skip it
+          if ft == "go" then
+            return
+          end
+          -- If a formatter is configured, use it, otherwise run lsp format.
+          if ft_formatters[ft] then
+            vim.cmd("FormatWriteLock")
+          else
+            -- Run the LSP formatter (if a supporting LS is running)
+            local clients = vim.lsp.get_clients({
+              bufnr = vim.api.nvim_get_current_buf(),
+              method = "textDocument/formatting",
+            })
+            if #clients ~= 0 then
+              vim.lsp.buf.format()
+            end
+          end
+        end,
+      })
+    end,
   },
   -- Todo Comments
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,
+    opts = {},
     event = "VeryLazy",
   },
-  -- Codeium
+  -- Copilot
   {
-    "Exafunction/codeium.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
+    "zbirenbaum/copilot.lua",
+    opts = {
+      suggestion = {
+        auto_trigger = true,
+      },
+      filetypes = {
+        yaml = true,
+        markdown = true,
+        gitcommit = true,
+      },
     },
-    config = true,
-    event = "InsertEnter",
+    cmd = { "Copilot" },
+    event = { "InsertEnter" },
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-lua/plenary.nvim" },
+    },
+    build = "make tiktoken",
+    event = "VeryLazy",
+    config = function()
+      require("CopilotChat.integrations.cmp").setup()
+      require("CopilotChat").setup({
+        mappings = {
+          complete = {
+            insert = "",
+          },
+          reset = {
+            normal = "<C-n>",
+            insert = "",
+          },
+        },
+      })
+    end,
   },
   -- Golang
   {
@@ -139,12 +267,31 @@ return {
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
+    opts = {
+      lsp_config = false,
+      lsp_keymaps = false,
+      lsp_gofumpt = true,
+      trouble = true,
+      luasnip = true,
+    },
   },
   -- gotmpl grammer
   {
     "kmoschcau/tree-sitter-go-template",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    config = true,
+    ft = { "gotmpl", "yaml", "tpl" },
+    config = function()
+      vim.filetype.add({
+        extension = {
+          gotmpl = "gotmpl",
+        },
+        pattern = {
+          [".*/templates/.*%.tpl"] = "helm",
+          [".*/templates/.*%.ya?ml"] = "helm",
+          ["helmfile.*%.ya?ml"] = "helm",
+        },
+      })
+    end,
   },
   -- Navigator
   {
@@ -201,6 +348,12 @@ return {
         format_on_save = false, -- Handled by __formatter__ autocmd
       },
     },
+    keys = {
+      { "<leader>g", "", desc = "+Get (Navigator)" },
+      { "<space>c", "", desc = "+Code Actions (Navigator)" },
+      { "<space>l", "", desc = "+Code Lens (Navigator)" },
+      { "<space>r", "", desc = "+Refactor (Navigator)" },
+    },
   },
   -- LuaSnips
   {
@@ -210,6 +363,16 @@ return {
     dependencies = {
       "rafamadriz/friendly-snippets",
     },
+    event = "VeryLazy",
+    opts = {
+      snippetDir = snipDir,
+      jsonFormatter = "jq",
+      editSnippetPopup = {
+        keymaps = {
+          deleteSnippet = "<leader>sd",
+        },
+      },
+    },
   },
   -- Scissors
   {
@@ -217,6 +380,16 @@ return {
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
+    event = "VeryLazy",
+    config = function()
+      require("luasnip").setup()
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load({
+        paths = {
+          snipDir,
+        },
+      })
+    end,
   },
   -- Otter
   {
@@ -227,7 +400,7 @@ return {
     },
     enabled = false,
     lazy = true,
-    config = true,
+    opts = {},
   },
   -- cmp
   {
@@ -240,8 +413,71 @@ return {
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
-      -- "jmbuhr/otter.nvim",
     },
+    event = "VeryLazy",
+    config = function()
+      vim.opt.completeopt = { "menu", "menuone", "noselect" }
+      local cmp = require("cmp")
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<tab>"] = cmp.mapping.select_next_item(),
+          ["<s-tab>"] = cmp.mapping.select_prev_item(),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-u>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm(),
+        }),
+        sources = {
+          { name = "nvim_lsp", keyword_length = 1 },
+          { name = "nvim_lua", keyword_length = 2 },
+          { name = "luasnip", keyword_length = 2 },
+          { name = "neorg", keyword_length = 2 },
+        },
+        {
+          { name = "buffer", keyword_length = 2 },
+          { name = "path" },
+        },
+        formatting = {
+          format = require("lspkind").cmp_format({
+            mode = "symbol",
+            maxwidth = 50,
+            ellipsis_char = "...",
+          }),
+        },
+        window = {
+          documentation = cmp.config.window.bordered(),
+          completion = cmp.config.window.bordered(),
+        },
+        enabled = function()
+          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+        end,
+      })
+      cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+        sources = {
+          { name = "dap", keyword_length = 1 },
+        },
+      })
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          { name = "cmdline" },
+        }),
+      })
+      cmp.setup.cmdline({ "/", "?" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
+    end,
   },
   -- Markdown Previewing
   {

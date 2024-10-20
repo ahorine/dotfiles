@@ -28,7 +28,7 @@ return {
       },
     },
     keys = {
-      { "<leader>f", desc = "+Telescope" },
+      { "<leader>f", "", desc = "+Telescope" },
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
       { "<leader>fa", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find File (+hidden)" },
       { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
@@ -87,7 +87,7 @@ return {
   {
     "tris203/precognition.nvim",
     enabled = false,
-    config = true,
+    opts = {},
     event = "BufReadPre",
   },
   -- Registers
@@ -108,7 +108,7 @@ return {
   -- Marks
   {
     "chentoast/marks.nvim",
-    config = true,
+    opts = {},
     event = "VeryLazy",
   },
   -- Buffer Manager
@@ -131,7 +131,7 @@ return {
   {
     "kevinhwang91/nvim-bqf",
     event = "VeryLazy",
-    config = true,
+    opts = {},
   },
   {
     "stevearc/oil.nvim",
