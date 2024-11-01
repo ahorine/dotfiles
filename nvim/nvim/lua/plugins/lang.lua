@@ -213,46 +213,6 @@ return {
     opts = {},
     event = "VeryLazy",
   },
-  -- Copilot
-  {
-    "zbirenbaum/copilot.lua",
-    opts = {
-      suggestion = {
-        auto_trigger = true,
-      },
-      filetypes = {
-        yaml = true,
-        markdown = true,
-        gitcommit = true,
-      },
-    },
-    cmd = { "Copilot" },
-    event = { "InsertEnter" },
-  },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
-    dependencies = {
-      { "zbirenbaum/copilot.lua" },
-      { "nvim-lua/plenary.nvim" },
-    },
-    build = "make tiktoken",
-    event = "VeryLazy",
-    config = function()
-      require("CopilotChat.integrations.cmp").setup()
-      require("CopilotChat").setup({
-        mappings = {
-          complete = {
-            insert = "",
-          },
-          reset = {
-            normal = "<C-n>",
-            insert = "",
-          },
-        },
-      })
-    end,
-  },
   -- Golang
   {
     "ray-x/go.nvim",
@@ -271,6 +231,7 @@ return {
       lsp_config = false,
       lsp_keymaps = false,
       lsp_gofumpt = true,
+      test_runner = "ginkgo",
       trouble = true,
       luasnip = true,
     },

@@ -111,22 +111,30 @@ return {
     opts = {},
     event = "VeryLazy",
   },
-  -- Buffer Manager
+  -- Buffer List
   {
-    "j-morano/buffer_manager.nvim",
-    config = function()
-      vim.api.nvim_set_hl(0, "BufferManagerModified", { fg = "#af0000" })
-    end,
-    keys = {
-      {
-        "<leader>b",
-        function()
-          require("buffer_manager.ui").toggle_quick_menu()
-        end,
-        desc = "Buffer Manager",
-      },
-    },
+    "EL-MASTOR/bufferlist.nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    cmd = "BufferList",
+    opts = {},
+    keys = { { "<Leader>b", ":BufferList<CR>", desc = "Open bufferlist" } },
   },
+  -- Buffer Manager
+  -- {
+  --   "j-morano/buffer_manager.nvim",
+  --   config = function()
+  --     vim.api.nvim_set_hl(0, "BufferManagerModified", { fg = "#af0000" })
+  --   end,
+  --   keys = {
+  --     {
+  --       "<leader>b",
+  --       function()
+  --         require("buffer_manager.ui").toggle_quick_menu()
+  --       end,
+  --       desc = "Buffer Manager",
+  --     },
+  --   },
+  -- },
   -- Better Quickfix
   {
     "kevinhwang91/nvim-bqf",
