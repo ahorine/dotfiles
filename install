@@ -23,6 +23,7 @@ nvim/vimrc ${HOME} .vimrc
 nvim/nvim ${HOME}/.config nvim
 zshrc ${HOME} .zshrc
 starship.toml ${HOME}/.config starship.toml
+warpd ${HOME}/.config/warpd warpd
 
 # On Darwin, the alacritty config isn't read when in the config directory,
 # so we'll also symlink it to the home directory.
