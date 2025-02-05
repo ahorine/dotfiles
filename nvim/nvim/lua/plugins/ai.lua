@@ -6,11 +6,13 @@ return {
     version = false,
     opts = {
       provider = "copilot",
-      auto_suggestions_provider = "copilot",
-      behaviour = {
-        auto_suggestions = true,
-      },
     },
+    config = function(_, opts)
+      require("avante").setup(opts)
+      -- Avante now force-disables using Copilot as the auto_suggestions_provider.
+      -- We can re-enable it after loading the config by just manually setting the key.
+      require("avante.config").auto_suggestions_provider = "copilot"
+    end,
     build = "make",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",

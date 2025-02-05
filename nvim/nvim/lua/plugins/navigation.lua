@@ -40,6 +40,7 @@ return {
   -- Flash
   {
     "folke/flash.nvim",
+    event = "VeryLazy",
     keys = {
       {
         "s",
