@@ -28,6 +28,7 @@ return {
     config = function()
       local ll = require("lualine")
       local lazyStatus = require("lazy.status")
+      local lint = require("lint")
       local cfg = ll.get_config()
       local ll_y = cfg.sections.lualine_y
       local ll_x = cfg.sections.lualine_x
@@ -38,24 +39,28 @@ return {
       }
       table.insert(ll_y, 1, lazyUpdates)
       local lint_progress = function()
-        local linters = require("lint").get_running()
-        if #linters == 0 then
+        local running = lint.get_running()
+        if not lint.linters_by_ft[vim.bo.filetype] or #lint.linters_by_ft[vim.bo.filetype] == 0 then
+          return ""
+        end
+        if #running == 0 then
           return "󰦕"
         end
-        return "󱉶 " .. table.concat(linters, ", ")
+        return "󱉶 " .. table.concat(running, ", ")
       end
       local lint_color = function()
-        local linters = require("lint").get_running()
-        if #linters == 0 then
+        local running = lint.get_running()
+        if #running == 0 then
           return { fg = "#3ad11f" }
         end
         return { fg = "#ff9e64" }
       end
-      local lint = {
+      local lint_status = {
         lint_progress,
         color = lint_color,
       }
-      table.insert(ll_x, 1, lint)
+      table.insert(ll_x, 1, lint_status)
+      table.insert(ll_x, 1, "lsp_status")
       ll.setup({
         options = {
           theme = "auto",

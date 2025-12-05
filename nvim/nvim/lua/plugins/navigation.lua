@@ -11,6 +11,7 @@ return {
       "rcarriga/nvim-notify",
       "folke/which-key.nvim",
     },
+    lazy = false,
     opts = {
       pickers = {
         live_grep = {
@@ -23,7 +24,7 @@ return {
         file_ignore_patterns = {
           "node_modules",
           "vendor",
-          ".git",
+          "%.git",
         },
       },
     },
@@ -116,8 +117,8 @@ return {
   {
     "EL-MASTOR/bufferlist.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
-    cmd = "BufferList",
     opts = {},
+    cmd = "BufferList",
     keys = { { "<Leader>b", ":BufferList<CR>", desc = "Open bufferlist" } },
   },
   -- Buffer Manager

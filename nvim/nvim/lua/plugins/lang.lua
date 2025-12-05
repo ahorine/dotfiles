@@ -1,6 +1,7 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local snipDir = vim.fn.stdpath("config") .. "/snippets"
+local formatIgnore = ".formatignore"
 
 -- Auto Commands
 -- - Format on save
@@ -24,6 +25,25 @@ autocmd("FileType", {
     require("cmp").setup.buffer({ enabled = false })
   end,
 })
+
+local function shouldFormat(filename)
+  local root = vim.fs.root(0, formatIgnore)
+  if not root then
+    return true
+  end
+  local file = io.open(vim.fs.joinpath(root, formatIgnore), "r")
+  if not file then
+    return true
+  end
+
+  for line in file:lines() do
+    if string.match(filename, line) then
+      vim.notify("Formatting disabled for " .. filename, vim.log.levels.WARN)
+      return false
+    end
+  end
+  return true
+end
 
 -- Language Plugins
 return {
@@ -74,11 +94,12 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
-    config = function()
-      require("lspconfig.ui.windows").default_options = {
-        border = "rounded",
-      }
-    end,
+    -- config = function()
+    --   vim.lsp.config()
+    --   -- require("lspconfig.ui.windows").default_options = {
+    --   --   border = "rounded",
+    --   -- }
+    -- end,
   },
   -- LSP Kind
   {
@@ -142,8 +163,8 @@ return {
         markdown = { "markdownlint" },
         yaml = { "yamllint" },
       }
-      -- - Create autocommand to lint on CursorHold
-      autocmd("CursorHold", {
+      -- - Create autocommand to lint
+      autocmd("InsertLeave", {
         callback = function()
           lint.try_lint()
         end,
@@ -185,8 +206,8 @@ return {
         group = afg,
         callback = function()
           local ft = vim.bo.filetype
-          -- If it's a go file, skip it
-          if ft == "go" then
+          -- If it's a go file or formatting is disabled, skip it
+          if ft == "go" or not shouldFormat(vim.api.nvim_buf_get_name(0)) then
             return
           end
           -- If a formatter is configured, use it, otherwise run lsp format.
@@ -226,7 +247,7 @@ return {
     },
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
-    build = ':lua require("go.install").update_all_sync()',
+    build = ':lua require("go.install").update_all()',
     opts = {
       lsp_config = false,
       lsp_keymaps = false,
@@ -305,7 +326,7 @@ return {
           return cfg
         end,
         -- Register additional servers
-        servers = { "marksman", "helm_ls" },
+        servers = { "marksman", "helm_ls", "ltex" },
         format_on_save = false, -- Handled by __formatter__ autocmd
       },
     },
@@ -390,7 +411,7 @@ return {
           ["<s-tab>"] = cmp.mapping.select_prev_item(),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-u>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-c>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm(),
         }),
@@ -416,7 +437,7 @@ return {
           completion = cmp.config.window.bordered(),
         },
         enabled = function()
-          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+          return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt" or require("cmp_dap").is_dap_buffer()
         end,
       })
       cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {

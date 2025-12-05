@@ -1,4 +1,4 @@
-local undodir = vim.fn.stdpath("data") .. "/undo"
+local undodir = vim.fs.joinpath(vim.fn.stdpath("data"), "/undo")
 
 -- General options
 vim.opt.mouse = ""
@@ -36,8 +36,8 @@ vim.g.maplocalleader = "\\"
 
 -- Add borders
 local borderStyle = "rounded"
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = borderStyle })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = borderStyle })
+vim.lsp.buf.hover({ border = borderStyle })
+vim.lsp.buf.signature_help({ border = borderStyle })
 vim.diagnostic.config({
   float = {
     border = borderStyle,

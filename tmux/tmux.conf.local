@@ -228,7 +228,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" #{loadavg} | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , #{network_bandwidth} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #{airpods} #{laptop} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -391,47 +391,48 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'laktak/extrakto'
 set -g @plugin 'fcsonline/tmux-thumbs'
 set -g @plugin 'ahorine/tmux-spellbook'
-set -g @plugin 'xamut/tmux-network-bandwidth'
 set -g @plugin 'Alkindi42/tmux-bitwarden'
-set -g @plugin 'schasse/tmux-jump'
 
 # Plugin config
 # Continuum
 set -g @continuum-restore 'on'
 
 # Thumbs
-run-shell ${HOME}/.config/tmux/plugins/tmux-thumbs/tmux-thumbs.tmux
+#run-shell ${HOME}/.config/tmux/plugins/tmux-thumbs/tmux-thumbs.tmux
 set -g @thumbs-reverse enabled
 set -g @thumbs-unique enabled
 set -g @thumbs-command 'echo -n {} | pbcopy'
 set -g @thumbs-upcase-command 'tmux set-buffer -- {} && tmux paste-buffer'
 
-# Jump
-set -g @jump-key 'm'
-
 # Bitwarden
 set -g @bw-copy-to-clipboard 'on'
 
-# Network Bandwidth
-set-option -g @tmux-network-bandwidth-padding 5
-
 # -- Custom bindings -----------------------------------------------------------
+unbind -n C-l
 bind -r M-h swap-window -t -1\; select-window -t -1
 bind -r M-l swap-window -t +1\; select-window -t +1
 bind t "choose-tree -Z"
-bind q "killw"
+# bind q "killw" # This got fat-fingered too much. If re-adding, add a confirmation prompt.
 # Copy-mode
-# # <Esc> to clear or cancel
+# - <Esc> to clear or cancel
 bind -T copy-mode-vi Escape if-shell -F '#{selection_present}' \
                                         'send -X clear-selection' \
                                         'send -X cancel' \
-# # <v> to toggle selection
+# - <v> to toggle selection
 bind -T copy-mode-vi v if-shell -F '#{selection_present}' \
                                    'send -X clear-selection' \
                                    'send -X begin-selection' \
 
+# Display adjustments
+set -g pane-border-format "#{pane_index} #{pane_title}"
 set -g default-terminal "tmux-256color"
 set -ag terminal-overrides ",*:RGB"
+
+# ==== Bala Magic ====
+# clone pane
+bind S run-shell "tmux-clone-pane.sh"
+bind V run-shell "tmux-clone-pane.sh h"
+bind W run-shell "tmux-clone-pane.sh w"
 
 # -- custom variables ----------------------------------------------------------
 
@@ -455,6 +456,38 @@ set -ag terminal-overrides ",*:RGB"
 #
 # online() {
 #   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
+# }
+#
+# airpods() {
+#   PALETTE="8 196 202 208 214 220 226 190 154 118 82 46"
+#   bt_data="$(system_profiler SPBluetoothDataType -detailLevel brief -json)"
+#   case="$(jq -r '(.SPBluetoothDataType[0].device_connected[] | select(has("AirPods")) | (.[].device_batteryLevelCase))? // "-10"' <<<"$bt_data")"
+#   left="$(jq -r '(.SPBluetoothDataType[0].device_connected[] | select(has("AirPods")) | (.[].device_batteryLevelLeft))? // "-10"' <<<"$bt_data")"
+#   right="$(jq -r '(.SPBluetoothDataType[0].device_connected[] | select(has("AirPods")) | (.[].device_batteryLevelRight))? // "-10"' <<<"$bt_data")"
+#   case="${case//%/}"
+#   left="${left//%/}"
+#   right="${right//%/}"
+#   case="$(echo "$PALETTE" | cut -d' ' -f$(((case + 10) / 10 + 1)))"
+#   left="$(echo "$PALETTE" | cut -d' ' -f$(((left + 10) / 10 + 1)))"
+#   right="$(echo "$PALETTE" | cut -d' ' -f$(((right + 10) / 10 + 1)))"
+#   printf "#[fg=colour%s]󱂩 #[fg=colour%s]󱡏 #[fg=colour%s]󱡏#[fg=default]\n" "$case" "$left" "$right"
+# }
+#
+# laptop() {
+#   PALETTE="8 196 202 208 214 220 226 190 154 118 82 46"
+#   DRAIN_ICONS="󱟩 󰂎 󰁺 󰁻 󰁼 󰁽 󰁾 󰁿 󰂀 󰂁 󰂂 󰁹"
+#   CHARGE_ICONS="󱟩 󰢟 󰢜 󰂆 󰂇 󰂈 󰢝 󰂉 󰢞 󰂊 󰂋 󰂅"
+#   battery_info="$(pmset -g batt | grep 'InternalBattery')"
+#   icons="$CHARGE_ICONS"
+#   if echo "$battery_info" | grep -qi 'discharging'; then
+#     icons="$DRAIN_ICONS"
+#   fi
+#   battery_percent="$(echo "$battery_info" | grep -Eo '\d{1,3}%' || echo "-10")"
+#   battery_percent="${battery_percent%%%}"
+#   index="$(((battery_percent + 10) / 10 + 1))"
+#   icon="$(echo "$icons" | cut -d' ' -f"$index")"
+#   color="$(echo "$PALETTE" | cut -d' ' -f"$index")"
+#   printf "#[fg=colour%s]%s#[fg=default]\n" "$color" "$icon"
 # }
 #
 # "$@"

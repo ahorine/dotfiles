@@ -21,17 +21,17 @@ end
 -- Organization/Productivity
 return {
   -- luarocks (for neorg)
-  {
-    "vhyrro/luarocks.nvim",
-    priority = 1000,
-    opts = {},
-  },
+  -- {
+  --   "vhyrro/luarocks.nvim",
+  --   priority = 1000,
+  --   opts = {},
+  -- },
   -- Neorg
   {
     "nvim-neorg/neorg",
     ft = "norg",
     dependencies = {
-      "vhyrro/luarocks.nvim",
+      -- "vhyrro/luarocks.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -40,6 +40,11 @@ return {
       -- "jmbuhr/otter.nvim",
     },
     cmd = "Neorg",
+    keys = {
+      { "<leader>n", "", desc = "+Neorg" },
+      { "<leader>nw", "<cmd>Neorg workspace work<cr>", desc = "Workspace Work" },
+      { "<leader>nr", "dG<cmd>Neorg generate-workspace-summary<cr>", desc = "Reindex Workspace" },
+    },
     config = function()
       -- Keymap overrides
       vim.keymap.set("i", "<leader><CR>", "<Plug>(neorg.itero.next-iteration)", {})
@@ -113,13 +118,26 @@ return {
   -- CodeSnap (sharing)
   {
     "mistricky/codesnap.nvim",
-    build = "make build_generator",
     cmd = "CodeSnap",
     opts = {
-      code_font_family = "SauceCodePro Nerd Font Mono",
-      mac_window_bar = false,
-      bg_padding = 0,
-      watermark = "",
+      show_line_number = true,
+      code_config = {
+        font_family = "SauceCodePro Nerd Font Mono",
+        breadcumbs = {
+          font_family = "SauceCodePro Nerd Font Mono",
+        },
+      },
+      snapshot_config = {
+        -- theme = "tokyonight@https://raw.githubusercontent.com/tokyo-night/tokyo-night-vscode-theme/refs/heads/master/themes/tokyo-night-color-theme.json",
+        -- theme = "vercel@https://raw.githubusercontent.com/Railly/one-hunter-vscode/refs/heads/main/themes/OneHunter-Vercel-color-theme.json",
+        window = {
+          mac_window_bar = false,
+          margin = {
+            x = 0,
+            y = 0,
+          },
+        },
+      },
     },
   },
 }

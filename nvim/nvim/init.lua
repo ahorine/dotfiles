@@ -21,6 +21,7 @@ require("lazy").setup("plugins", {
     lazy = false,
   },
   checker = {
-    enabled = true,
+    enabled = false,
+    frequency = 86400,
   },
 })
