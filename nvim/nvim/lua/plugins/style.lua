@@ -135,6 +135,11 @@ return {
     keys = {
       { "<leader>t", "", desc = "+Trouble" },
       {
+        "<leader>tt",
+        "<cmd>Trouble todo toggle<cr>",
+        desc = "Todo (Trouble)",
+      },
+      {
         "<leader>td",
         "<cmd>Trouble diagnostics toggle<cr>",
         desc = "Diagnostics (Trouble)",

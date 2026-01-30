@@ -14,6 +14,7 @@ fpath=($HOME/.zsh_functions $fpath)
 setopt ignore_eof
 set -o vi
 export EDITOR=nvim
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgreprc"
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"

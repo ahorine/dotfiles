@@ -24,6 +24,7 @@ nvim/nvim ${HOME}/.config nvim
 zshrc ${HOME} .zshrc
 starship.toml ${HOME}/.config starship.toml
 warpd ${HOME}/.config/warpd warpd
+tokyonight_night.tmTheme ${HOME}/.config/codesnap/themes tokyonight_night.tmTheme
 
 # On Darwin, the alacritty config isn't read when in the config directory,
 # so we'll also symlink it to the home directory.

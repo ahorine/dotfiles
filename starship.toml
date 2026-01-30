@@ -65,7 +65,7 @@ symbol = " "
 [kubernetes]
 disabled = false
 contexts = [
-  { context_pattern = "swwf-il-k53-s", context_alias = "k53" },
+  { context_pattern = "amphibolite", context_alias = "AMP" },
 ]
 
 [lua]

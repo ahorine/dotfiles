@@ -228,7 +228,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" #{loadavg} | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #{airpods} #{laptop} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #{airpods} #{trackpad} #{laptop} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -424,9 +424,15 @@ bind -T copy-mode-vi v if-shell -F '#{selection_present}' \
                                    'send -X begin-selection' \
 
 # Display adjustments
-set -g pane-border-format "#{pane_index} #{pane_title}"
+set -g pane-border-status top
+set -g pane-border-format "#{pane_title}"
+set-hook -g after-split-window 'selectp -T ""'
+set-hook -g after-new-window 'selectp -T ""'
+set-hook -g after-new-session 'selectp -T ""'
 set -g default-terminal "tmux-256color"
 set -ag terminal-overrides ",*:RGB"
+# Clear pane title
+bind C-c "selectp -T ''"
 
 # ==== Bala Magic ====
 # clone pane
@@ -456,6 +462,15 @@ bind W run-shell "tmux-clone-pane.sh w"
 #
 # online() {
 #   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
+# }
+#
+# trackpad() {
+#   local bat PALETTE
+#   PALETTE="8 196 202 208 214 220 226 190 154 118 82 46"
+#   bat="$(ioreg -rn AppleDeviceManagementHIDEventService -k BatteryPercent | awk '/BatteryPercent/ {print $3}')"
+#   [[ ! "$bat" =~ ^[0-9]+$ ]] && bat=-10
+#   bat="$(echo "$PALETTE" | cut -d' ' -f$(((bat + 10) / 10 + 1)))"
+#   printf "#[fg=color%s]󰟸#[fg=default]\n" "$bat"
 # }
 #
 # airpods() {
