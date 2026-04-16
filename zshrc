@@ -1,3 +1,5 @@
+#zmodload zsh/zprof
+#
 export ZSH_DISABLE_COMPFIX=true
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/opt/gnu-tar/libexec/gnubin:/usr/local/bin:$PATH:/usr/local/go/bin:$HOME/go/bin/:$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin
@@ -6,15 +8,13 @@ export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
 
 fpath=($HOME/.zsh_functions $fpath)
 
-# Generated for envman. Do not edit.
-[[ -s "$HOME/.config/envman/load.sh" ]] && source "$HOME/.config/envman/load.sh"
-
 #source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 #source "$HOME/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
 setopt ignore_eof
 set -o vi
 export EDITOR=nvim
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgreprc"
+export K9S_CONFIG_DIR="$HOME/.config/k9s"
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -239,3 +239,5 @@ eval "$(starship init zsh)"
 # PROMPT='$($(which starship) prompt --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="$STARSHIP_CMD_STATUS" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
 # RPROMPT='$($(which starship) prompt --right --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="$STARSHIP_CMD_STATUS" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
 # PROMPT2="$($(which starship) prompt --continuation)"
+#
+#zprof

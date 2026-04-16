@@ -131,8 +131,8 @@ return {
         -- themes_folders = {
         --   "~/.config/codesnap/themes",
         -- },
-        -- theme = "~/.config/codesnap/themes/tokyonight_night.tmTheme",
-        -- theme = "tokyonight@https://github.com/folke/tokyonight.nvim/blob/5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd/extras/sublime/tokyonight_night.tmTheme",
+        -- theme = "tokyonight_night.tmTheme",
+        -- theme = "tokyonight@https://raw.githubusercontent.com/folke/tokyonight.nvim/5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd/extras/sublime/tokyonight_night.tmTheme",
         -- theme = "vercel@https://raw.githubusercontent.com/Railly/one-hunter-vscode/refs/heads/main/themes/OneHunter-Vercel-color-theme.json",
         window = {
           mac_window_bar = false,

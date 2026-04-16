@@ -107,17 +107,18 @@ return {
   -- - Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "BufReadPre",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "python", "go", "bash" },
-        auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = true,
-        },
-      })
-    end,
+    lazy = false,
+    build = ":TSUpdate",
+    -- config = function()
+    --   require("nvim-treesitter.configs").setup({
+    --     ensure_installed = { "python", "go", "bash" },
+    --     auto_install = true,
+    --     highlight = {
+    --       enable = true,
+    --       additional_vim_regex_highlighting = true,
+    --     },
+    --   })
+    -- end,
   },
   -- - Traces
   {
@@ -170,6 +171,11 @@ return {
         desc = "Quickfix List (Trouble)",
       },
     },
+  },
+  -- - Colorizer
+  {
+    "norcalli/nvim-colorizer.lua",
+    event = "VeryLazy",
   },
   -- - Winshift
   {

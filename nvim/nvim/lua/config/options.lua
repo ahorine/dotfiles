@@ -10,6 +10,7 @@ vim.opt.hidden = true
 vim.opt.scrolloff = 5
 vim.opt.backspace = "indent,eol,start"
 vim.opt.copyindent = true
+-- TODO: Considering expandtab globally and adding per-filetype configs (ftplugin) to adjust.
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
@@ -29,6 +30,12 @@ vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpo
 vim.opt.foldlevelstart = 99
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
+vim.opt.laststatus = 3
+
+-- Spelling
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"
+vim.opt.spelloptions = "camel"
 
 -- Global options
 vim.g.mapleader = ","

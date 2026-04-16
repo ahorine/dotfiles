@@ -5,20 +5,14 @@ return {
     event = "VeryLazy",
     version = false,
     opts = {
+      disabled_tools = { "git_commit" },
       provider = "copilot",
-      auto_suggestions_provider = "copilot",
       providers = {
         copilot = {
-          model = "claude-sonnet-4.5",
+          model = "claude-opus-4.6",
         },
       },
     },
-    -- config = function(_, opts)
-    --   require("avante").setup(opts)
-    --   -- Avante now force-disables using Copilot as the auto_suggestions_provider.
-    --   -- We can re-enable it after loading the config by just manually setting the key.
-    --   --require("avante.config").auto_suggestions_provider = "copilot"
-    -- end,
     keys = {
       { "<leader>a", "", desc = "+Avante" },
       --  { "<leader>aa", "<cmd>AvanteAsk<cr>", desc = "avante: ask" },
